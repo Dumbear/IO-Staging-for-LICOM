@@ -49,7 +49,7 @@
     </global-bounds>
   </adios-group>
 
-  <method group="ssaveins" method="DATASPACES">
+  <method group="ssaveins" method="MPI">
     <!--num_aggregators=4;num_ost=1-->
   </method>
 
