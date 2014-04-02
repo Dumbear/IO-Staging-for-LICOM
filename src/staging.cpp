@@ -49,7 +49,6 @@ ADIOS_FILE *fp_in;
 int64_t fp_out;
 double buf[32 * 1024 * 1024];
 
-bool has_decomposed;
 int ni_global, nj_global, nk_global, ni_offset, nj_offset, nk_offset, ni_local, nj_local, nk_local;
 uint64_t dim_start[4][8], dim_count[4][8];
 
@@ -93,7 +92,6 @@ void decompose() {
         return;
     }
 
-    has_decomposed = true;
     uint64_t from, to;
 
     from = ni_global * rank_x / proc_x;
@@ -141,23 +139,21 @@ void process_step() {
     adios_open(&fp_out, "ssaveins", filename_out.c_str(), "w", io_comm);
     all_output("Write file opened.");
     all_output("There are", fp_in->nvars, "variables to write.");
-    // What's this???
-    uint64_t group_size = 4 + 4 + 4 * 9 + 8 * 5 * 362 * 194 * 30 + 8 * 15 * 362 * 194, total_size;
+
+    ni_global = 362;
+    nj_global = 194;
+    nk_global = 30;
+    decompose();
+    uint64_t group_size = 4 + 4 + 4 * 9, total_size;
+    group_size += 8 * 5 * dim_count[3][0] * dim_count[3][1] * dim_count[3][2];
+    group_size += 8 * 15 * dim_count[2][0] * dim_count[2][1];
     adios_group_size(fp_out, group_size, &total_size);
 
-    has_decomposed = false;
-    ni_global = nj_global = nk_global = -1;
     for (int i = 0; i < fp_in->nvars; ++i) {
-        if (!has_decomposed) {
-            decompose();
-        }
         string name(fp_in->var_namelist[i]);
         ADIOS_VARINFO *v = adios_inq_var_byid(fp_in, i);
         if (v->ndim > 0) {
             ADIOS_SELECTION *sel = adios_selection_boundingbox(v->ndim, dim_start[v->ndim], dim_count[v->ndim]);
-            // all_output(name, v->ndim);
-            // all_output(dim_start[v->ndim][0], dim_start[v->ndim][1], dim_start[v->ndim][2]);
-            // all_output(dim_count[v->ndim][0], dim_count[v->ndim][1], dim_count[v->ndim][2]);
             read_single(i, buf, sel);
             write_single(i, buf);
         } else if (name == "/dimensions/ni_global") {
