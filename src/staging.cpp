@@ -189,10 +189,6 @@ void process_step() {
 }
 
 bool process_single() {
-    all_output("Initializing ADIOS...");
-    adios_init("licom2_staging.xml", io_comm);
-    all_output("ADIOS initialized.");
-
     all_output("Opening read file <" + filename_in + ">...");
     fp_in = adios_read_open(filename_in.c_str(), method_read, io_comm, ADIOS_LOCKMODE_ALL, timeout_sec);
     if (fp_in == NULL) {
@@ -214,8 +210,6 @@ bool process_single() {
         process_step();
     }
     adios_read_close(fp_in);
-
-    adios_finalize(proc_rank);
 }
 
 void advance_day(int &year, int &month, int &day) {
@@ -232,9 +226,12 @@ void advance_day(int &year, int &month, int &day) {
 
 void process() {
     all_output("Initializing read method...");
-    // What this????
     adios_read_init_method(method_read, io_comm, "max_chunk_size=100; app_id =32767; \nverbose= 3;poll_interval  =  100;");
     all_output("Read method initialized.");
+
+    all_output("Initializing ADIOS...");
+    adios_init("licom2_staging.xml", io_comm);
+    all_output("ADIOS initialized.");
 
     int year = 1, month = 1, day = 3;
     for (int i = 0; i < n_steps; ++i) {
@@ -247,6 +244,7 @@ void process() {
     }
 
     adios_read_finalize_method(method_read);
+    adios_finalize(proc_rank);
 }
 
 bool parse_arguments(int argc, char **argv) {
