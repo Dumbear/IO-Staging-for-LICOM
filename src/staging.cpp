@@ -193,11 +193,6 @@ void process_step() {
 }
 
 bool process_single() {
-    all_output("Initializing read method...");
-    // What this????
-    adios_read_init_method(method_read, io_comm, "max_chunk_size=100; app_id =32767; \nverbose= 3;poll_interval  =  100;");
-    all_output("Read method initialized.");
-
     all_output("Initializing ADIOS...");
     adios_init("licom2_staging.xml", io_comm);
     all_output("ADIOS initialized.");
@@ -224,7 +219,6 @@ bool process_single() {
     }
     adios_read_close(fp_in);
 
-    adios_read_finalize_method(method_read);
     adios_finalize(proc_rank);
 }
 
@@ -241,6 +235,11 @@ void advance_day(int &year, int &month, int &day) {
 }
 
 void process() {
+    all_output("Initializing read method...");
+    // What this????
+    adios_read_init_method(method_read, io_comm, "max_chunk_size=100; app_id =32767; \nverbose= 3;poll_interval  =  100;");
+    all_output("Read method initialized.");
+
     int year = 1, month = 1, day = 3;
     for (int i = 0; i < n_steps; ++i) {
         char buf[128];
@@ -250,6 +249,8 @@ void process() {
         process_single();
         advance_day(year, month, day);
     }
+
+    adios_read_finalize_method(method_read);
 }
 
 bool parse_arguments(int argc, char **argv) {
