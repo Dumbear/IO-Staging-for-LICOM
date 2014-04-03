@@ -1,4 +1,4 @@
-ADIOS_DIR=/home/zouevan/soft/adios-1.6.0
+ADIOS_DIR=/home/xuewei/WORK/liangyaxiong/softwares/adios-1.6.0
 ADIOS_CONFIG=${ADIOS_DIR}/bin/adios_config
 
 CC = mpicxx

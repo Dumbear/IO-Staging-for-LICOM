@@ -236,7 +236,8 @@ void process() {
     int year = 1, month = 1, day = 3;
     for (int i = 0; i < n_steps; ++i) {
         char buf[128];
-        sprintf(buf, "fort.22.%04d-%02d-%02d", year, month, day);
+        // sprintf(buf, "fort.22.%04d-%02d-%02d", year, month, day);
+        sprintf(buf, "out_ssaveins");
         filename_in = string() + buf + ".bp";
         filename_out = string() + buf + "-staged.bp";
         process_single();

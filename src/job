@@ -1,9 +1,10 @@
 #!/bin/bash
 
-RUNCMD="mpiexec -np"
-SERVER=/home/zouevan/soft/dataspaces-1.3.0/bin/dataspaces_server
+R1="bsub -q normal -n"
+R2="-a intelmpi -o output.%J mpirun.lsf"
+SERVER=/home/xuewei/WORK/liangyaxiong/softwares/dataspaces-1.3.0/bin/dataspaces_server
 
-WRITEPROC=64
+WRITEPROC=1
 STAGINGPROC=1
 READPROC=1
 let "PROCALL=WRITEPROC+READPROC"
@@ -25,7 +26,7 @@ max_versions = 10
 
 # Run DataSpaces
 echo "-- Start DataSpaces server "$SERVER" on $STAGINGPROC PEs, -s$STAGINGPROC -c$PROCALL"
-$RUNCMD $STAGINGPROC $SERVER -s$STAGINGPROC -c$PROCALL &> log.server &
+$R1 $STAGINGPROC $R2 $SERVER -s$STAGINGPROC -c$PROCALL &> log.server &
 
 ## Give some time for the servers to load and startup
 sleep 1s
@@ -44,11 +45,11 @@ echo "-- DataSpaces IDs: P2TNID = $P2TNID   P2TPID = $P2TPID"
 
 # Start GENARRAY
 echo "-- Start GENARRAY on $WRITEPROC PEs"
-mpiexec -machinefile host -n $WRITEPROC ./ccsm.exe >& log.licom &
+$R1 $WRITEPROC $R2 ./licom_skel 1 1 1 >& log.licom &
 
 # Start STAGE_WRITE
 echo "-- Start STAGE_WRITE on $READPROC PEs"
-$RUNCMD $READPROC ./staging 1 3000 1 1 1 >& log.staging &
+$R1 $READPROC $R2 ./staging 1 3000 1 1 1 >& log.staging &
 
 echo "-- Wait until all applications exit. Run ./check.sh to see status"
 wait
