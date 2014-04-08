@@ -1,0 +1,14 @@
+<adios-config host-language="C">
+  <adios-group name="test">
+    <var name="dim/global" type="integer" />
+    <var name="dim/start" type="integer" />
+    <var name="dim/count" type="integer" />
+    <global-bounds dimensions="dim/global" offsets="dim/start">
+      <var name="data" type="float" dimensions="dim/count" />
+    </global-bounds>
+  </adios-group>
+
+  <method group="test" method="DATASPACES" />
+
+  <buffer size-MB="100" allocate-time="now" />
+</adios-config>
