@@ -5,6 +5,9 @@
 \******************************************************************************/
 #include "mpi.h"
 #include "adios.h"
+extern "C" {
+    #include "skel/skel_xml_output.h"
+}
 #include <algorithm>
 #include <bitset>
 #include <cctype>
@@ -48,6 +51,8 @@ float *data;
 
 int64_t fp_out;
 
+double timer[4];
+
 void prepare_writing() {
     int from = (int64_t)dim_global * proc_rank / proc_size;
     int to = (int64_t)dim_global * (proc_rank + 1) / proc_size;
@@ -69,10 +74,23 @@ void process() {
     adios_init("writer_adios.xml", io_comm);
     adios_open(&fp_out, "test", "writer_test.bp", "w", io_comm);
     adios_group_size(fp_out, group_size, &total_size);
+
+    timer[0] -= MPI_Wtime();
     adios_write(fp_out, "dim/global", &dim_global);
+    timer[0] += MPI_Wtime();
+
+    timer[1] -= MPI_Wtime();
     adios_write(fp_out, "dim/start", &dim_start);
+    timer[1] += MPI_Wtime();
+
+    timer[2] -= MPI_Wtime();
     adios_write(fp_out, "dim/count", &dim_count);
+    timer[2] += MPI_Wtime();
+
+    timer[3] -= MPI_Wtime();
     adios_write(fp_out, "data", data);
+    timer[3] += MPI_Wtime();
+
     adios_close(fp_out);
     adios_finalize(proc_rank);
 
@@ -104,6 +122,7 @@ int main(int argc, char **argv) {
 
     if (parse_arguments(argc, argv)) {
         process();
+        skel_write_coarse_xml_data(timer[0], timer[1], timer[2], timer[3]);
     }
 
     MPI_Finalize();

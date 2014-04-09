@@ -3,5 +3,5 @@ ADIOS_CONFIG=${ADIOS_DIR}/bin/adios_config
 
 CC = mpicxx
 cc = mpicc
-LDFLAGS = `${ADIOS_CONFIG} -l` -L${ADIOS_DIR}/lib/skel -lskel
+LDFLAGS = `${ADIOS_CONFIG} -l` -lskel
 CFLAGS  = -g -O2 `${ADIOS_CONFIG} -c`
