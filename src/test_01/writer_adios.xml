@@ -1,10 +1,16 @@
 <adios-config host-language="C">
   <adios-group name="test">
-    <var name="dim/global" type="integer" />
-    <var name="dim/start" type="integer" />
-    <var name="dim/count" type="integer" />
-    <global-bounds dimensions="dim/global" offsets="dim/start">
-      <var name="data" type="float" dimensions="dim/count" />
+    <var name="dim/global_x" type="integer" />
+    <var name="dim/global_y" type="integer" />
+    <var name="dim/global_z" type="integer" />
+    <var name="dim/start_x" type="integer" />
+    <var name="dim/start_y" type="integer" />
+    <var name="dim/start_z" type="integer" />
+    <var name="dim/count_x" type="integer" />
+    <var name="dim/count_y" type="integer" />
+    <var name="dim/count_z" type="integer" />
+    <global-bounds dimensions="dim/global_x,dim/global_y,dim/global_z" offsets="dim/start_x,dim/start_y,dim/start_z">
+      <var name="data" type="float" dimensions="dim/count_x,dim/count_y,dim/count_z" />
     </global-bounds>
   </adios-group>
 
