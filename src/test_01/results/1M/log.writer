@@ -1,0 +1,200 @@
+Sender: LSF System <lsfadmin@c03b16>
+Subject: Job 3161971: <mpirun.lsf ./writer 64 64 64 1 1 1> Done
+
+Job <mpirun.lsf ./writer 64 64 64 1 1 1> was submitted from host <c01b03> by user <xuewei> in cluster <cluster1>.
+Job was executed on host(s) <c03b16>, in queue <normal>, as user <xuewei> in cluster <cluster1>.
+</tmp/.lsbtmp526> was used as the home directory.
+</home/xuewei/WORK/liangyaxiong/projects/IO-Staging-for-LICOM/src/test_01> was used as the working directory.
+Started at Wed Apr  9 23:11:07 2014
+Results reported at Wed Apr  9 23:11:26 2014
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+mpirun.lsf ./writer 64 64 64 1 1 1
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time   :      0.41 sec.
+    Max Memory :         2 MB
+    Max Swap   :        25 MB
+
+    Max Processes  :         1
+    Max Threads    :         1
+
+The output (if any) follows:
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! infiniband !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+data to be fetched is size(48) from peer(0).
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! infiniband !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+data to be fetched is size(48) from peer(0).
+dc_alloc succeed 1.
+Job  /jobmgr/lsf8.0/8.0/linux2.6-glibc2.3-x86_64/bin/intelmpi_wrapper ./writer 64 64 64 1 1 1
+
+TID   HOST_NAME   COMMAND_LINE            STATUS            TERMINATION_TIME
+===== ========== ================  =======================  ===================
+00000 c03b16     ./writer 64 64 6  Done                     04/09/2014 23:11:23
+Sender: LSF System <lsfadmin@c02b19>
+Subject: Job 3161983: <mpirun.lsf ./writer 64 64 64 1 1 1> Done
+
+Job <mpirun.lsf ./writer 64 64 64 1 1 1> was submitted from host <c01b03> by user <xuewei> in cluster <cluster1>.
+Job was executed on host(s) <c02b19>, in queue <normal>, as user <xuewei> in cluster <cluster1>.
+</tmp/.lsbtmp526> was used as the home directory.
+</home/xuewei/WORK/liangyaxiong/projects/IO-Staging-for-LICOM/src/test_01> was used as the working directory.
+Started at Wed Apr  9 23:12:57 2014
+Results reported at Wed Apr  9 23:13:31 2014
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+mpirun.lsf ./writer 64 64 64 1 1 1
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time   :      0.43 sec.
+    Max Memory :         2 MB
+    Max Swap   :        25 MB
+
+    Max Processes  :         1
+    Max Threads    :         1
+
+The output (if any) follows:
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! infiniband !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+data to be fetched is size(48) from peer(0).
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! infiniband !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+data to be fetched is size(48) from peer(0).
+dc_alloc succeed 1.
+Job  /jobmgr/lsf8.0/8.0/linux2.6-glibc2.3-x86_64/bin/intelmpi_wrapper ./writer 64 64 64 1 1 1
+
+TID   HOST_NAME   COMMAND_LINE            STATUS            TERMINATION_TIME
+===== ========== ================  =======================  ===================
+00000 c02b19     ./writer 64 64 6  Done                     04/09/2014 23:13:12
+Sender: LSF System <lsfadmin@c02b16>
+Subject: Job 3161998: <mpirun.lsf ./writer 64 64 64 1 1 1> Done
+
+Job <mpirun.lsf ./writer 64 64 64 1 1 1> was submitted from host <c01b03> by user <xuewei> in cluster <cluster1>.
+Job was executed on host(s) <c02b16>, in queue <normal>, as user <xuewei> in cluster <cluster1>.
+</tmp/.lsbtmp526> was used as the home directory.
+</home/xuewei/WORK/liangyaxiong/projects/IO-Staging-for-LICOM/src/test_01> was used as the working directory.
+Started at Wed Apr  9 23:16:53 2014
+Results reported at Wed Apr  9 23:17:08 2014
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+mpirun.lsf ./writer 64 64 64 1 1 1
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time   :      0.41 sec.
+    Max Memory :         2 MB
+    Max Swap   :        25 MB
+
+    Max Processes  :         1
+    Max Threads    :         1
+
+The output (if any) follows:
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! infiniband !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+data to be fetched is size(48) from peer(0).
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! infiniband !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+data to be fetched is size(48) from peer(0).
+dc_alloc succeed 1.
+Job  /jobmgr/lsf8.0/8.0/linux2.6-glibc2.3-x86_64/bin/intelmpi_wrapper ./writer 64 64 64 1 1 1
+
+TID   HOST_NAME   COMMAND_LINE            STATUS            TERMINATION_TIME
+===== ========== ================  =======================  ===================
+00000 c02b16     ./writer 64 64 6  Done                     04/09/2014 23:17:04
+Sender: LSF System <lsfadmin@c16b06>
+Subject: Job 3162002: <mpirun.lsf ./writer 64 64 64 1 1 1> Done
+
+Job <mpirun.lsf ./writer 64 64 64 1 1 1> was submitted from host <c01b03> by user <xuewei> in cluster <cluster1>.
+Job was executed on host(s) <c16b06>, in queue <normal>, as user <xuewei> in cluster <cluster1>.
+</tmp/.lsbtmp526> was used as the home directory.
+</home/xuewei/WORK/liangyaxiong/projects/IO-Staging-for-LICOM/src/test_01> was used as the working directory.
+Started at Wed Apr  9 23:17:21 2014
+Results reported at Wed Apr  9 23:17:41 2014
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+mpirun.lsf ./writer 64 64 64 1 1 1
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time   :      0.40 sec.
+    Max Memory :         2 MB
+    Max Swap   :        25 MB
+
+    Max Processes  :         1
+    Max Threads    :         1
+
+The output (if any) follows:
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! infiniband !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+data to be fetched is size(48) from peer(0).
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! infiniband !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+data to be fetched is size(48) from peer(0).
+dc_alloc succeed 1.
+Job  /jobmgr/lsf8.0/8.0/linux2.6-glibc2.3-x86_64/bin/intelmpi_wrapper ./writer 64 64 64 1 1 1
+
+TID   HOST_NAME   COMMAND_LINE            STATUS            TERMINATION_TIME
+===== ========== ================  =======================  ===================
+00000 c16b06     ./writer 64 64 6  Done                     04/09/2014 23:17:37
+Sender: LSF System <lsfadmin@c02b15>
+Subject: Job 3162008: <mpirun.lsf ./writer 64 64 64 1 1 1> Done
+
+Job <mpirun.lsf ./writer 64 64 64 1 1 1> was submitted from host <c01b03> by user <xuewei> in cluster <cluster1>.
+Job was executed on host(s) <c02b15>, in queue <normal>, as user <xuewei> in cluster <cluster1>.
+</tmp/.lsbtmp526> was used as the home directory.
+</home/xuewei/WORK/liangyaxiong/projects/IO-Staging-for-LICOM/src/test_01> was used as the working directory.
+Started at Wed Apr  9 23:18:45 2014
+Results reported at Wed Apr  9 23:19:04 2014
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+mpirun.lsf ./writer 64 64 64 1 1 1
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time   :      0.38 sec.
+    Max Memory :         2 MB
+    Max Swap   :        25 MB
+
+    Max Processes  :         1
+    Max Threads    :         1
+
+The output (if any) follows:
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! infiniband !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+data to be fetched is size(48) from peer(0).
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! infiniband !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+data to be fetched is size(48) from peer(0).
+dc_alloc succeed 1.
+Job  /jobmgr/lsf8.0/8.0/linux2.6-glibc2.3-x86_64/bin/intelmpi_wrapper ./writer 64 64 64 1 1 1
+
+TID   HOST_NAME   COMMAND_LINE            STATUS            TERMINATION_TIME
+===== ========== ================  =======================  ===================
+00000 c02b15     ./writer 64 64 6  Done                     04/09/2014 23:19:01

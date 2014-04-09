@@ -1,0 +1,275 @@
+Sender: LSF System <lsfadmin@c03b16>
+Subject: Job 3162547: <mpirun.lsf /home/xuewei/WORK/liangyaxiong/softwares/dataspaces-1.3.0/bin/dataspaces_server -s1 -c1> Done
+
+Job <mpirun.lsf /home/xuewei/WORK/liangyaxiong/softwares/dataspaces-1.3.0/bin/dataspaces_server -s1 -c1> was submitted from host <c01b03> by user <xuewei> in cluster <cluster1>.
+Job was executed on host(s) <c03b16>, in queue <normal>, as user <xuewei> in cluster <cluster1>.
+</tmp/.lsbtmp526> was used as the home directory.
+</home/xuewei/WORK/liangyaxiong/projects/IO-Staging-for-LICOM/src/test_01> was used as the working directory.
+Started at Thu Apr 10 02:02:51 2014
+Results reported at Thu Apr 10 02:03:37 2014
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+mpirun.lsf /home/xuewei/WORK/liangyaxiong/softwares/dataspaces-1.3.0/bin/dataspaces_server -s1 -c1
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time   :      0.51 sec.
+    Max Memory :        21 MB
+    Max Swap   :       360 MB
+
+    Max Processes  :         6
+    Max Threads    :        10
+
+The output (if any) follows:
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! dataspaces server !!!!!!!!!!!!!!!!!!!!!!1
+'dsg_alloc()' config file loaded.
+'ds_boot_master()': all the peer are registered.2 1
+'ds_alloc()': init ok.
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! infiniband !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+data to be fetched is size(1073741824) from peer(1).
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! dataspaces server get put !!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! infiniband !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+data to be fetched is size(672) from peer(1).
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! dataspaces server get put !!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! infiniband !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+data to be fetched is size(128) from peer(1).
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! dataspaces server get put !!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! infiniband !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+data to be fetched is size(8) from peer(1).
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! dataspaces server get put !!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! infiniband !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+data to be fetched is size(8) from peer(1).
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! dataspaces server get put !!!!!!!!!!!!!!!!!!!!!!
+All ok.
+Job  /jobmgr/lsf8.0/8.0/linux2.6-glibc2.3-x86_64/bin/intelmpi_wrapper /home/xuewei/WORK/liangyaxiong/softwares/dataspaces-1.3.0/bin/dataspaces_server -s1 -c1
+
+TID   HOST_NAME   COMMAND_LINE            STATUS            TERMINATION_TIME
+===== ========== ================  =======================  ===================
+00000 c03b16     /home/xuewei/WOR  Done                     04/10/2014 02:03:34
+Sender: LSF System <lsfadmin@c16b20>
+Subject: Job 3162559: <mpirun.lsf /home/xuewei/WORK/liangyaxiong/softwares/dataspaces-1.3.0/bin/dataspaces_server -s1 -c1> Done
+
+Job <mpirun.lsf /home/xuewei/WORK/liangyaxiong/softwares/dataspaces-1.3.0/bin/dataspaces_server -s1 -c1> was submitted from host <c01b03> by user <xuewei> in cluster <cluster1>.
+Job was executed on host(s) <c16b20>, in queue <normal>, as user <xuewei> in cluster <cluster1>.
+</tmp/.lsbtmp526> was used as the home directory.
+</home/xuewei/WORK/liangyaxiong/projects/IO-Staging-for-LICOM/src/test_01> was used as the working directory.
+Started at Thu Apr 10 02:07:44 2014
+Results reported at Thu Apr 10 02:08:30 2014
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+mpirun.lsf /home/xuewei/WORK/liangyaxiong/softwares/dataspaces-1.3.0/bin/dataspaces_server -s1 -c1
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time   :      0.50 sec.
+    Max Memory :        21 MB
+    Max Swap   :       360 MB
+
+    Max Processes  :         6
+    Max Threads    :        10
+
+The output (if any) follows:
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! dataspaces server !!!!!!!!!!!!!!!!!!!!!!1
+'dsg_alloc()' config file loaded.
+'ds_boot_master()': all the peer are registered.2 1
+'ds_alloc()': init ok.
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! infiniband !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+data to be fetched is size(1073741824) from peer(1).
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! dataspaces server get put !!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! dataspaces server get put !!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! infiniband !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+data to be fetched is size(672) from peer(1).
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! dataspaces server get put !!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! infiniband !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+data to be fetched is size(128) from peer(1).
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! dataspaces server get put !!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! infiniband !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+data to be fetched is size(8) from peer(1).
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! dataspaces server get put !!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! infiniband !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+data to be fetched is size(8) from peer(1).
+All ok.
+Job  /jobmgr/lsf8.0/8.0/linux2.6-glibc2.3-x86_64/bin/intelmpi_wrapper /home/xuewei/WORK/liangyaxiong/softwares/dataspaces-1.3.0/bin/dataspaces_server -s1 -c1
+
+TID   HOST_NAME   COMMAND_LINE            STATUS            TERMINATION_TIME
+===== ========== ================  =======================  ===================
+00000 c16b20     /home/xuewei/WOR  Done                     04/10/2014 02:08:27
+Sender: LSF System <lsfadmin@c03b17>
+Subject: Job 3162567: <mpirun.lsf /home/xuewei/WORK/liangyaxiong/softwares/dataspaces-1.3.0/bin/dataspaces_server -s1 -c1> Done
+
+Job <mpirun.lsf /home/xuewei/WORK/liangyaxiong/softwares/dataspaces-1.3.0/bin/dataspaces_server -s1 -c1> was submitted from host <c01b03> by user <xuewei> in cluster <cluster1>.
+Job was executed on host(s) <c03b17>, in queue <normal>, as user <xuewei> in cluster <cluster1>.
+</tmp/.lsbtmp526> was used as the home directory.
+</home/xuewei/WORK/liangyaxiong/projects/IO-Staging-for-LICOM/src/test_01> was used as the working directory.
+Started at Thu Apr 10 02:09:34 2014
+Results reported at Thu Apr 10 02:10:20 2014
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+mpirun.lsf /home/xuewei/WORK/liangyaxiong/softwares/dataspaces-1.3.0/bin/dataspaces_server -s1 -c1
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time   :      0.52 sec.
+    Max Memory :        21 MB
+    Max Swap   :       360 MB
+
+    Max Processes  :         6
+    Max Threads    :        10
+
+The output (if any) follows:
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! dataspaces server !!!!!!!!!!!!!!!!!!!!!!1
+'dsg_alloc()' config file loaded.
+'ds_boot_master()': all the peer are registered.2 1
+'ds_alloc()': init ok.
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! infiniband !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+data to be fetched is size(1073741824) from peer(1).
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! dataspaces server get put !!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! infiniband !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+data to be fetched is size(672) from peer(1).
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! dataspaces server get put !!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! infiniband !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+data to be fetched is size(128) from peer(1).
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! dataspaces server get put !!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! infiniband !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+data to be fetched is size(8) from peer(1).
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! dataspaces server get put !!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! infiniband !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+data to be fetched is size(8) from peer(1).
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! dataspaces server get put !!!!!!!!!!!!!!!!!!!!!!
+All ok.
+Job  /jobmgr/lsf8.0/8.0/linux2.6-glibc2.3-x86_64/bin/intelmpi_wrapper /home/xuewei/WORK/liangyaxiong/softwares/dataspaces-1.3.0/bin/dataspaces_server -s1 -c1
+
+TID   HOST_NAME   COMMAND_LINE            STATUS            TERMINATION_TIME
+===== ========== ================  =======================  ===================
+00000 c03b17     /home/xuewei/WOR  Done                     04/10/2014 02:10:17
+Sender: LSF System <lsfadmin@c01b20>
+Subject: Job 3162573: <mpirun.lsf /home/xuewei/WORK/liangyaxiong/softwares/dataspaces-1.3.0/bin/dataspaces_server -s1 -c1> Done
+
+Job <mpirun.lsf /home/xuewei/WORK/liangyaxiong/softwares/dataspaces-1.3.0/bin/dataspaces_server -s1 -c1> was submitted from host <c01b03> by user <xuewei> in cluster <cluster1>.
+Job was executed on host(s) <c01b20>, in queue <normal>, as user <xuewei> in cluster <cluster1>.
+</tmp/.lsbtmp526> was used as the home directory.
+</home/xuewei/WORK/liangyaxiong/projects/IO-Staging-for-LICOM/src/test_01> was used as the working directory.
+Started at Thu Apr 10 02:11:20 2014
+Results reported at Thu Apr 10 02:12:01 2014
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+mpirun.lsf /home/xuewei/WORK/liangyaxiong/softwares/dataspaces-1.3.0/bin/dataspaces_server -s1 -c1
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time   :      0.52 sec.
+    Max Memory :        17 MB
+    Max Swap   :       308 MB
+
+    Max Processes  :         6
+    Max Threads    :         7
+
+The output (if any) follows:
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! dataspaces server !!!!!!!!!!!!!!!!!!!!!!1
+'dsg_alloc()' config file loaded.
+'ds_boot_master()': all the peer are registered.2 1
+'ds_alloc()': init ok.
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! infiniband !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+data to be fetched is size(1073741824) from peer(1).
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! dataspaces server get put !!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! infiniband !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+data to be fetched is size(672) from peer(1).
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! dataspaces server get put !!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! dataspaces server get put !!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! infiniband !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+data to be fetched is size(128) from peer(1).
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! dataspaces server get put !!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! infiniband !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+data to be fetched is size(8) from peer(1).
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! dataspaces server get put !!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! infiniband !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+data to be fetched is size(8) from peer(1).
+All ok.
+Job  /jobmgr/lsf8.0/8.0/linux2.6-glibc2.3-x86_64/bin/intelmpi_wrapper /home/xuewei/WORK/liangyaxiong/softwares/dataspaces-1.3.0/bin/dataspaces_server -s1 -c1
+
+TID   HOST_NAME   COMMAND_LINE            STATUS            TERMINATION_TIME
+===== ========== ================  =======================  ===================
+00000 c01b20     /home/xuewei/WOR  Done                     04/10/2014 02:11:58
+Sender: LSF System <lsfadmin@c01b20>
+Subject: Job 3162577: <mpirun.lsf /home/xuewei/WORK/liangyaxiong/softwares/dataspaces-1.3.0/bin/dataspaces_server -s1 -c1> Done
+
+Job <mpirun.lsf /home/xuewei/WORK/liangyaxiong/softwares/dataspaces-1.3.0/bin/dataspaces_server -s1 -c1> was submitted from host <c01b03> by user <xuewei> in cluster <cluster1>.
+Job was executed on host(s) <c01b20>, in queue <normal>, as user <xuewei> in cluster <cluster1>.
+</tmp/.lsbtmp526> was used as the home directory.
+</home/xuewei/WORK/liangyaxiong/projects/IO-Staging-for-LICOM/src/test_01> was used as the working directory.
+Started at Thu Apr 10 02:12:23 2014
+Results reported at Thu Apr 10 02:13:04 2014
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+mpirun.lsf /home/xuewei/WORK/liangyaxiong/softwares/dataspaces-1.3.0/bin/dataspaces_server -s1 -c1
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time   :      0.51 sec.
+    Max Memory :        17 MB
+    Max Swap   :       308 MB
+
+    Max Processes  :         6
+    Max Threads    :         7
+
+The output (if any) follows:
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! dataspaces server !!!!!!!!!!!!!!!!!!!!!!1
+'dsg_alloc()' config file loaded.
+'ds_boot_master()': all the peer are registered.2 1
+'ds_alloc()': init ok.
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! infiniband !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+data to be fetched is size(1073741824) from peer(1).
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! dataspaces server get put !!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! infiniband !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+data to be fetched is size(672) from peer(1).
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! dataspaces server get put !!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! infiniband !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+data to be fetched is size(128) from peer(1).
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! dataspaces server get put !!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! infiniband !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+data to be fetched is size(8) from peer(1).
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! dataspaces server get put !!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! infiniband !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+data to be fetched is size(8) from peer(1).
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! dataspaces server get put !!!!!!!!!!!!!!!!!!!!!!
+All ok.
+Job  /jobmgr/lsf8.0/8.0/linux2.6-glibc2.3-x86_64/bin/intelmpi_wrapper /home/xuewei/WORK/liangyaxiong/softwares/dataspaces-1.3.0/bin/dataspaces_server -s1 -c1
+
+TID   HOST_NAME   COMMAND_LINE            STATUS            TERMINATION_TIME
+===== ========== ================  =======================  ===================
+00000 c01b20     /home/xuewei/WOR  Done                     04/10/2014 02:13:01

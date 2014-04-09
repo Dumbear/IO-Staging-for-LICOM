@@ -1,0 +1,200 @@
+Sender: LSF System <lsfadmin@c02b02>
+Subject: Job 3162548: <mpirun.lsf ./writer 1024 512 512 1 1 1> Done
+
+Job <mpirun.lsf ./writer 1024 512 512 1 1 1> was submitted from host <c01b03> by user <xuewei> in cluster <cluster1>.
+Job was executed on host(s) <c02b02>, in queue <normal>, as user <xuewei> in cluster <cluster1>.
+</tmp/.lsbtmp526> was used as the home directory.
+</home/xuewei/WORK/liangyaxiong/projects/IO-Staging-for-LICOM/src/test_01> was used as the working directory.
+Started at Thu Apr 10 02:02:48 2014
+Results reported at Thu Apr 10 02:03:18 2014
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+mpirun.lsf ./writer 1024 512 512 1 1 1
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time   :     10.80 sec.
+    Max Memory :      1455 MB
+    Max Swap   :      2141 MB
+
+    Max Processes  :         6
+    Max Threads    :         7
+
+The output (if any) follows:
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! infiniband !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+data to be fetched is size(48) from peer(0).
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! infiniband !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+data to be fetched is size(48) from peer(0).
+dc_alloc succeed 1.
+Job  /jobmgr/lsf8.0/8.0/linux2.6-glibc2.3-x86_64/bin/intelmpi_wrapper ./writer 1024 512 512 1 1 1
+
+TID   HOST_NAME   COMMAND_LINE            STATUS            TERMINATION_TIME
+===== ========== ================  =======================  ===================
+00000 c02b02     ./writer 1024 51  Done                     04/10/2014 02:03:15
+Sender: LSF System <lsfadmin@c02b02>
+Subject: Job 3162562: <mpirun.lsf ./writer 1024 512 512 1 1 1> Done
+
+Job <mpirun.lsf ./writer 1024 512 512 1 1 1> was submitted from host <c01b03> by user <xuewei> in cluster <cluster1>.
+Job was executed on host(s) <c02b02>, in queue <normal>, as user <xuewei> in cluster <cluster1>.
+</tmp/.lsbtmp526> was used as the home directory.
+</home/xuewei/WORK/liangyaxiong/projects/IO-Staging-for-LICOM/src/test_01> was used as the working directory.
+Started at Thu Apr 10 02:08:00 2014
+Results reported at Thu Apr 10 02:08:31 2014
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+mpirun.lsf ./writer 1024 512 512 1 1 1
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time   :     10.81 sec.
+    Max Memory :      1202 MB
+    Max Swap   :      2141 MB
+
+    Max Processes  :         6
+    Max Threads    :         7
+
+The output (if any) follows:
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! infiniband !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+data to be fetched is size(48) from peer(0).
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! infiniband !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+data to be fetched is size(48) from peer(0).
+dc_alloc succeed 1.
+Job  /jobmgr/lsf8.0/8.0/linux2.6-glibc2.3-x86_64/bin/intelmpi_wrapper ./writer 1024 512 512 1 1 1
+
+TID   HOST_NAME   COMMAND_LINE            STATUS            TERMINATION_TIME
+===== ========== ================  =======================  ===================
+00000 c02b02     ./writer 1024 51  Done                     04/10/2014 02:08:28
+Sender: LSF System <lsfadmin@c02b07>
+Subject: Job 3162570: <mpirun.lsf ./writer 1024 512 512 1 1 1> Done
+
+Job <mpirun.lsf ./writer 1024 512 512 1 1 1> was submitted from host <c01b03> by user <xuewei> in cluster <cluster1>.
+Job was executed on host(s) <c02b07>, in queue <normal>, as user <xuewei> in cluster <cluster1>.
+</tmp/.lsbtmp526> was used as the home directory.
+</home/xuewei/WORK/liangyaxiong/projects/IO-Staging-for-LICOM/src/test_01> was used as the working directory.
+Started at Thu Apr 10 02:09:50 2014
+Results reported at Thu Apr 10 02:10:21 2014
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+mpirun.lsf ./writer 1024 512 512 1 1 1
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time   :     10.80 sec.
+    Max Memory :      1526 MB
+    Max Swap   :      2141 MB
+
+    Max Processes  :         6
+    Max Threads    :         7
+
+The output (if any) follows:
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! infiniband !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+data to be fetched is size(48) from peer(0).
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! infiniband !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+data to be fetched is size(48) from peer(0).
+dc_alloc succeed 1.
+Job  /jobmgr/lsf8.0/8.0/linux2.6-glibc2.3-x86_64/bin/intelmpi_wrapper ./writer 1024 512 512 1 1 1
+
+TID   HOST_NAME   COMMAND_LINE            STATUS            TERMINATION_TIME
+===== ========== ================  =======================  ===================
+00000 c02b07     ./writer 1024 51  Done                     04/10/2014 02:10:18
+Sender: LSF System <lsfadmin@c03b16>
+Subject: Job 3162574: <mpirun.lsf ./writer 1024 512 512 1 1 1> Done
+
+Job <mpirun.lsf ./writer 1024 512 512 1 1 1> was submitted from host <c01b03> by user <xuewei> in cluster <cluster1>.
+Job was executed on host(s) <c03b16>, in queue <normal>, as user <xuewei> in cluster <cluster1>.
+</tmp/.lsbtmp526> was used as the home directory.
+</home/xuewei/WORK/liangyaxiong/projects/IO-Staging-for-LICOM/src/test_01> was used as the working directory.
+Started at Thu Apr 10 02:11:35 2014
+Results reported at Thu Apr 10 02:12:01 2014
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+mpirun.lsf ./writer 1024 512 512 1 1 1
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time   :     10.83 sec.
+    Max Memory :      1259 MB
+    Max Swap   :      2141 MB
+
+    Max Processes  :         2
+    Max Threads    :         5
+
+The output (if any) follows:
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! infiniband !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+data to be fetched is size(48) from peer(0).
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! infiniband !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+data to be fetched is size(48) from peer(0).
+dc_alloc succeed 1.
+Job  /jobmgr/lsf8.0/8.0/linux2.6-glibc2.3-x86_64/bin/intelmpi_wrapper ./writer 1024 512 512 1 1 1
+
+TID   HOST_NAME   COMMAND_LINE            STATUS            TERMINATION_TIME
+===== ========== ================  =======================  ===================
+00000 c03b16     ./writer 1024 51  Done                     04/10/2014 02:11:58
+Sender: LSF System <lsfadmin@c16b20>
+Subject: Job 3162578: <mpirun.lsf ./writer 1024 512 512 1 1 1> Done
+
+Job <mpirun.lsf ./writer 1024 512 512 1 1 1> was submitted from host <c01b03> by user <xuewei> in cluster <cluster1>.
+Job was executed on host(s) <c16b20>, in queue <normal>, as user <xuewei> in cluster <cluster1>.
+</tmp/.lsbtmp526> was used as the home directory.
+</home/xuewei/WORK/liangyaxiong/projects/IO-Staging-for-LICOM/src/test_01> was used as the working directory.
+Started at Thu Apr 10 02:12:13 2014
+Results reported at Thu Apr 10 02:12:44 2014
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+mpirun.lsf ./writer 1024 512 512 1 1 1
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time   :     10.80 sec.
+    Max Memory :      1246 MB
+    Max Swap   :      2141 MB
+
+    Max Processes  :         6
+    Max Threads    :         7
+
+The output (if any) follows:
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! infiniband !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+data to be fetched is size(48) from peer(0).
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! infiniband !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+data to be fetched is size(48) from peer(0).
+dc_alloc succeed 1.
+Job  /jobmgr/lsf8.0/8.0/linux2.6-glibc2.3-x86_64/bin/intelmpi_wrapper ./writer 1024 512 512 1 1 1
+
+TID   HOST_NAME   COMMAND_LINE            STATUS            TERMINATION_TIME
+===== ========== ================  =======================  ===================
+00000 c16b20     ./writer 1024 51  Done                     04/10/2014 02:12:40
