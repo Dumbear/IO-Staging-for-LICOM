@@ -1,0 +1,30 @@
+<skel_result>
+  <adios_timing cores='1' keys='ad_open,ad_write,ad_close,skel_total'>
+    <proc id='0' vals='0.000000,0.057478,0.041349,0.057526' />
+  </adios_timing>
+</skel_result>
+<skel_result>
+  <adios_timing cores='1' keys='ad_open,ad_write,ad_close,skel_total'>
+    <proc id='0' vals='0.000000,0.057595,0.043242,0.057644' />
+  </adios_timing>
+</skel_result>
+<skel_result>
+  <adios_timing cores='1' keys='ad_open,ad_write,ad_close,skel_total'>
+    <proc id='0' vals='0.000000,0.057454,0.039376,0.057503' />
+  </adios_timing>
+</skel_result>
+<skel_result>
+  <adios_timing cores='1' keys='ad_open,ad_write,ad_close,skel_total'>
+    <proc id='0' vals='0.000000,0.057599,0.040184,0.057661' />
+  </adios_timing>
+</skel_result>
+<skel_result>
+  <adios_timing cores='1' keys='ad_open,ad_write,ad_close,skel_total'>
+    <proc id='0' vals='0.000000,0.057604,0.042233,0.057653' />
+  </adios_timing>
+</skel_result>
+<skel_result>
+  <adios_timing cores='1' keys='ad_open,ad_write,ad_close,skel_total'>
+    <proc id='0' vals='0.000000,0.057372,0.043453,0.057422' />
+  </adios_timing>
+</skel_result>

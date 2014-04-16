@@ -1,0 +1,285 @@
+Sender: LSF System <lsfadmin@c01b12>
+Subject: Job 3184376: <mpirun.lsf ./writer 256 256 256 1 1 1> Done
+
+Job <mpirun.lsf ./writer 256 256 256 1 1 1> was submitted from host <c01b03> by user <xuewei> in cluster <cluster1>.
+Job was executed on host(s) <c01b12>, in queue <normal>, as user <xuewei> in cluster <cluster1>.
+</tmp/.lsbtmp526> was used as the home directory.
+</home/xuewei/WORK/liangyaxiong/projects/IO-Staging-for-LICOM/src/test_01> was used as the working directory.
+Started at Wed Apr 16 23:37:21 2014
+Results reported at Wed Apr 16 23:37:51 2014
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+mpirun.lsf ./writer 256 256 256 1 1 1
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time   :      0.83 sec.
+    Max Memory :         2 MB
+    Max Swap   :        25 MB
+
+    Max Processes  :         1
+    Max Threads    :         1
+
+The output (if any) follows:
+
+dc_alloc succeed 1.
+		Time[gen characteristics] = 0.15265703
+	Time[pre-processing] = 0.00000405
+	Time[gen characteristics] = 0.15291905
+	Time[write characteristics] = 0.00000787
+		Time[allocate] = 0.03252482
+		Time[copy obj-desc] = 0.00000119
+		Time[rpc send] = 0.01275778
+	Time[dspaces put] = 0.04532099
+	Time[dspaces put sync] = 0.04221892
+		Time[allocate] = 0.00000095
+		Time[copy obj-desc] = 0.00000000
+		Time[rpc send] = 0.01047301
+		Time[allocate] = 0.00000215
+		Time[copy obj-desc] = 0.00000000
+		Time[rpc send] = 0.01036596
+		Time[allocate] = 0.00000215
+		Time[copy obj-desc] = 0.00000000
+		Time[rpc send] = 0.01060510
+		Time[allocate] = 0.00000119
+		Time[copy obj-desc] = 0.00000000
+		Time[rpc send] = 0.00994897
+Job  /jobmgr/lsf8.0/8.0/linux2.6-glibc2.3-x86_64/bin/intelmpi_wrapper ./writer 256 256 256 1 1 1
+
+TID   HOST_NAME   COMMAND_LINE            STATUS            TERMINATION_TIME
+===== ========== ================  =======================  ===================
+00000 c01b12     ./writer 256 256  Done                     04/16/2014 23:37:32
+Sender: LSF System <lsfadmin@c01b12>
+Subject: Job 3184379: <mpirun.lsf ./writer 256 256 256 1 1 1> Done
+
+Job <mpirun.lsf ./writer 256 256 256 1 1 1> was submitted from host <c01b03> by user <xuewei> in cluster <cluster1>.
+Job was executed on host(s) <c01b12>, in queue <normal>, as user <xuewei> in cluster <cluster1>.
+</tmp/.lsbtmp526> was used as the home directory.
+</home/xuewei/WORK/liangyaxiong/projects/IO-Staging-for-LICOM/src/test_01> was used as the working directory.
+Started at Wed Apr 16 23:38:22 2014
+Results reported at Wed Apr 16 23:38:58 2014
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+mpirun.lsf ./writer 256 256 256 1 1 1
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time   :      0.86 sec.
+    Max Memory :         2 MB
+    Max Swap   :        25 MB
+
+    Max Processes  :         1
+    Max Threads    :         1
+
+The output (if any) follows:
+
+dc_alloc succeed 1.
+		Time[gen characteristics] = 0.15026689
+	Time[pre-processing] = 0.00000405
+	Time[gen characteristics] = 0.15025401
+	Time[write characteristics] = 0.00000906
+		Time[allocate] = 0.03056598
+		Time[copy obj-desc] = 0.00000095
+		Time[rpc send] = 0.01228905
+	Time[dspaces put] = 0.04323506
+	Time[dspaces put sync] = 0.04210091
+		Time[allocate] = 0.00000095
+		Time[copy obj-desc] = 0.00000000
+		Time[rpc send] = 0.01118088
+		Time[allocate] = 0.00000095
+		Time[copy obj-desc] = 0.00000000
+		Time[rpc send] = 0.01035690
+		Time[allocate] = 0.00000215
+		Time[copy obj-desc] = 0.00000000
+		Time[rpc send] = 0.01060700
+		Time[allocate] = 0.00000119
+		Time[copy obj-desc] = 0.00000000
+		Time[rpc send] = 0.00994301
+Job  /jobmgr/lsf8.0/8.0/linux2.6-glibc2.3-x86_64/bin/intelmpi_wrapper ./writer 256 256 256 1 1 1
+
+TID   HOST_NAME   COMMAND_LINE            STATUS            TERMINATION_TIME
+===== ========== ================  =======================  ===================
+00000 c01b12     ./writer 256 256  Done                     04/16/2014 23:38:39
+Sender: LSF System <lsfadmin@c01b12>
+Subject: Job 3184382: <mpirun.lsf ./writer 256 256 256 1 1 1> Done
+
+Job <mpirun.lsf ./writer 256 256 256 1 1 1> was submitted from host <c01b03> by user <xuewei> in cluster <cluster1>.
+Job was executed on host(s) <c01b12>, in queue <normal>, as user <xuewei> in cluster <cluster1>.
+</tmp/.lsbtmp526> was used as the home directory.
+</home/xuewei/WORK/liangyaxiong/projects/IO-Staging-for-LICOM/src/test_01> was used as the working directory.
+Started at Wed Apr 16 23:39:25 2014
+Results reported at Wed Apr 16 23:40:00 2014
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+mpirun.lsf ./writer 256 256 256 1 1 1
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time   :      0.82 sec.
+    Max Memory :         2 MB
+    Max Swap   :        25 MB
+
+    Max Processes  :         1
+    Max Threads    :         1
+
+The output (if any) follows:
+
+dc_alloc succeed 1.
+		Time[gen characteristics] = 0.15123010
+	Time[pre-processing] = 0.00000405
+	Time[gen characteristics] = 0.15105796
+	Time[write characteristics] = 0.00000811
+		Time[allocate] = 0.03145218
+		Time[copy obj-desc] = 0.00000000
+		Time[rpc send] = 0.01207590
+	Time[dspaces put] = 0.04356003
+	Time[dspaces put sync] = 0.04386377
+		Time[allocate] = 0.00000095
+		Time[copy obj-desc] = 0.00000095
+		Time[rpc send] = 0.00981903
+		Time[allocate] = 0.00000095
+		Time[copy obj-desc] = 0.00000000
+		Time[rpc send] = 0.01040101
+		Time[allocate] = 0.00000215
+		Time[copy obj-desc] = 0.00000119
+		Time[rpc send] = 0.01063180
+		Time[allocate] = 0.00000620
+		Time[copy obj-desc] = 0.00000000
+		Time[rpc send] = 0.00995207
+Job  /jobmgr/lsf8.0/8.0/linux2.6-glibc2.3-x86_64/bin/intelmpi_wrapper ./writer 256 256 256 1 1 1
+
+TID   HOST_NAME   COMMAND_LINE            STATUS            TERMINATION_TIME
+===== ========== ================  =======================  ===================
+00000 c01b12     ./writer 256 256  Done                     04/16/2014 23:39:42
+Sender: LSF System <lsfadmin@c01b12>
+Subject: Job 3184385: <mpirun.lsf ./writer 256 256 256 1 1 1> Done
+
+Job <mpirun.lsf ./writer 256 256 256 1 1 1> was submitted from host <c01b03> by user <xuewei> in cluster <cluster1>.
+Job was executed on host(s) <c01b12>, in queue <normal>, as user <xuewei> in cluster <cluster1>.
+</tmp/.lsbtmp526> was used as the home directory.
+</home/xuewei/WORK/liangyaxiong/projects/IO-Staging-for-LICOM/src/test_01> was used as the working directory.
+Started at Wed Apr 16 23:40:31 2014
+Results reported at Wed Apr 16 23:41:02 2014
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+mpirun.lsf ./writer 256 256 256 1 1 1
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time   :      0.85 sec.
+    Max Memory :         2 MB
+    Max Swap   :        25 MB
+
+    Max Processes  :         1
+    Max Threads    :         1
+
+The output (if any) follows:
+
+dc_alloc succeed 1.
+		Time[gen characteristics] = 0.15084386
+	Time[pre-processing] = 0.00000381
+	Time[gen characteristics] = 0.15092111
+	Time[write characteristics] = 0.00000811
+		Time[allocate] = 0.03031611
+		Time[copy obj-desc] = 0.00000095
+		Time[rpc send] = 0.01217484
+	Time[dspaces put] = 0.04284406
+	Time[dspaces put sync] = 0.04220104
+		Time[allocate] = 0.00000095
+		Time[copy obj-desc] = 0.00000000
+		Time[rpc send] = 0.01027608
+		Time[allocate] = 0.00000095
+		Time[copy obj-desc] = 0.00000000
+		Time[rpc send] = 0.01027703
+		Time[allocate] = 0.00000191
+		Time[copy obj-desc] = 0.00000000
+		Time[rpc send] = 0.00962687
+		Time[allocate] = 0.00000215
+		Time[copy obj-desc] = 0.00000000
+		Time[rpc send] = 0.00994611
+Job  /jobmgr/lsf8.0/8.0/linux2.6-glibc2.3-x86_64/bin/intelmpi_wrapper ./writer 256 256 256 1 1 1
+
+TID   HOST_NAME   COMMAND_LINE            STATUS            TERMINATION_TIME
+===== ========== ================  =======================  ===================
+00000 c01b12     ./writer 256 256  Done                     04/16/2014 23:40:43
+Sender: LSF System <lsfadmin@c01b12>
+Subject: Job 3184389: <mpirun.lsf ./writer 256 256 256 1 1 1> Done
+
+Job <mpirun.lsf ./writer 256 256 256 1 1 1> was submitted from host <c01b03> by user <xuewei> in cluster <cluster1>.
+Job was executed on host(s) <c01b12>, in queue <normal>, as user <xuewei> in cluster <cluster1>.
+</tmp/.lsbtmp526> was used as the home directory.
+</home/xuewei/WORK/liangyaxiong/projects/IO-Staging-for-LICOM/src/test_01> was used as the working directory.
+Started at Wed Apr 16 23:41:45 2014
+Results reported at Wed Apr 16 23:42:15 2014
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+mpirun.lsf ./writer 256 256 256 1 1 1
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time   :      0.82 sec.
+    Max Memory :         2 MB
+    Max Swap   :        25 MB
+
+    Max Processes  :         1
+    Max Threads    :         1
+
+The output (if any) follows:
+
+dc_alloc succeed 1.
+		Time[gen characteristics] = 0.15274310
+	Time[pre-processing] = 0.00000405
+	Time[gen characteristics] = 0.15448999
+	Time[write characteristics] = 0.00000811
+		Time[allocate] = 0.03230405
+		Time[copy obj-desc] = 0.00000095
+		Time[rpc send] = 0.01244116
+	Time[dspaces put] = 0.04478097
+	Time[dspaces put sync] = 0.04445887
+		Time[allocate] = 0.00000095
+		Time[copy obj-desc] = 0.00000000
+		Time[rpc send] = 0.01014709
+		Time[allocate] = 0.00000119
+		Time[copy obj-desc] = 0.00000000
+		Time[rpc send] = 0.01040816
+		Time[allocate] = 0.00000095
+		Time[copy obj-desc] = 0.00000000
+		Time[rpc send] = 0.01056194
+		Time[allocate] = 0.00000191
+		Time[copy obj-desc] = 0.00000000
+		Time[rpc send] = 0.01094413
+Job  /jobmgr/lsf8.0/8.0/linux2.6-glibc2.3-x86_64/bin/intelmpi_wrapper ./writer 256 256 256 1 1 1
+
+TID   HOST_NAME   COMMAND_LINE            STATUS            TERMINATION_TIME
+===== ========== ================  =======================  ===================
+00000 c01b12     ./writer 256 256  Done                     04/16/2014 23:41:56

@@ -1,0 +1,245 @@
+Sender: LSF System <lsfadmin@c01b16>
+Subject: Job 3184457: <mpirun.lsf /home/xuewei/WORK/liangyaxiong/softwares/dataspaces-1.3.0/bin/dataspaces_server -s1 -c1> Done
+
+Job <mpirun.lsf /home/xuewei/WORK/liangyaxiong/softwares/dataspaces-1.3.0/bin/dataspaces_server -s1 -c1> was submitted from host <c01b03> by user <xuewei> in cluster <cluster1>.
+Job was executed on host(s) <c01b16>, in queue <normal>, as user <xuewei> in cluster <cluster1>.
+</tmp/.lsbtmp526> was used as the home directory.
+</home/xuewei/WORK/liangyaxiong/projects/IO-Staging-for-LICOM/src/test_01> was used as the working directory.
+Started at Thu Apr 17 00:04:56 2014
+Results reported at Thu Apr 17 00:05:42 2014
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+mpirun.lsf /home/xuewei/WORK/liangyaxiong/softwares/dataspaces-1.3.0/bin/dataspaces_server -s1 -c1
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time   :      0.52 sec.
+    Max Memory :        21 MB
+    Max Swap   :       360 MB
+
+    Max Processes  :         6
+    Max Threads    :        10
+
+The output (if any) follows:
+
+'dsg_alloc()' config file loaded.
+'ds_boot_master()': all the peer are registered.2 1
+'ds_alloc()': init ok.
+Time[receive direct] = 0.23125500
+Time[rpc obj put] = 0.23150400
+Time[receive direct] = 0.00003800
+Time[rpc obj put] = 0.00117700
+Time[receive direct] = 0.00002800
+Time[rpc obj put] = 0.00021100
+Time[receive direct] = 0.00003000
+Time[rpc obj put] = 0.00006600
+Time[receive direct] = 0.00002700
+Time[rpc obj put] = 0.00003900
+All ok.
+Job  /jobmgr/lsf8.0/8.0/linux2.6-glibc2.3-x86_64/bin/intelmpi_wrapper /home/xuewei/WORK/liangyaxiong/softwares/dataspaces-1.3.0/bin/dataspaces_server -s1 -c1
+
+TID   HOST_NAME   COMMAND_LINE            STATUS            TERMINATION_TIME
+===== ========== ================  =======================  ===================
+00000 c01b16     /home/xuewei/WOR  Done                     04/17/2014 00:05:39
+Sender: LSF System <lsfadmin@c01b12>
+Subject: Job 3184462: <mpirun.lsf /home/xuewei/WORK/liangyaxiong/softwares/dataspaces-1.3.0/bin/dataspaces_server -s1 -c1> Done
+
+Job <mpirun.lsf /home/xuewei/WORK/liangyaxiong/softwares/dataspaces-1.3.0/bin/dataspaces_server -s1 -c1> was submitted from host <c01b03> by user <xuewei> in cluster <cluster1>.
+Job was executed on host(s) <c01b12>, in queue <normal>, as user <xuewei> in cluster <cluster1>.
+</tmp/.lsbtmp526> was used as the home directory.
+</home/xuewei/WORK/liangyaxiong/projects/IO-Staging-for-LICOM/src/test_01> was used as the working directory.
+Started at Thu Apr 17 00:06:29 2014
+Results reported at Thu Apr 17 00:07:05 2014
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+mpirun.lsf /home/xuewei/WORK/liangyaxiong/softwares/dataspaces-1.3.0/bin/dataspaces_server -s1 -c1
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time   :      0.51 sec.
+    Max Memory :        25 MB
+    Max Swap   :       364 MB
+
+    Max Processes  :         6
+    Max Threads    :        10
+
+The output (if any) follows:
+
+'dsg_alloc()' config file loaded.
+'ds_boot_master()': all the peer are registered.2 1
+'ds_alloc()': init ok.
+Time[receive direct] = 0.23358200
+Time[rpc obj put] = 0.23383100
+Time[receive direct] = 0.00003800
+Time[rpc obj put] = 0.00098700
+Time[receive direct] = 0.00002900
+Time[rpc obj put] = 0.00021100
+Time[receive direct] = 0.00002900
+Time[rpc obj put] = 0.00006200
+Time[receive direct] = 0.00002800
+Time[rpc obj put] = 0.00004200
+All ok.
+Job  /jobmgr/lsf8.0/8.0/linux2.6-glibc2.3-x86_64/bin/intelmpi_wrapper /home/xuewei/WORK/liangyaxiong/softwares/dataspaces-1.3.0/bin/dataspaces_server -s1 -c1
+
+TID   HOST_NAME   COMMAND_LINE            STATUS            TERMINATION_TIME
+===== ========== ================  =======================  ===================
+00000 c01b12     /home/xuewei/WOR  Done                     04/17/2014 00:07:01
+Sender: LSF System <lsfadmin@c01b16>
+Subject: Job 3184465: <mpirun.lsf /home/xuewei/WORK/liangyaxiong/softwares/dataspaces-1.3.0/bin/dataspaces_server -s1 -c1> Done
+
+Job <mpirun.lsf /home/xuewei/WORK/liangyaxiong/softwares/dataspaces-1.3.0/bin/dataspaces_server -s1 -c1> was submitted from host <c01b03> by user <xuewei> in cluster <cluster1>.
+Job was executed on host(s) <c01b16>, in queue <normal>, as user <xuewei> in cluster <cluster1>.
+</tmp/.lsbtmp526> was used as the home directory.
+</home/xuewei/WORK/liangyaxiong/projects/IO-Staging-for-LICOM/src/test_01> was used as the working directory.
+Started at Thu Apr 17 00:07:16 2014
+Results reported at Thu Apr 17 00:08:13 2014
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+mpirun.lsf /home/xuewei/WORK/liangyaxiong/softwares/dataspaces-1.3.0/bin/dataspaces_server -s1 -c1
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time   :      0.54 sec.
+    Max Memory :        25 MB
+    Max Swap   :       364 MB
+
+    Max Processes  :         6
+    Max Threads    :        10
+
+The output (if any) follows:
+
+'dsg_alloc()' config file loaded.
+'ds_boot_master()': all the peer are registered.2 1
+'ds_alloc()': init ok.
+Time[receive direct] = 0.23101500
+Time[rpc obj put] = 0.23125300
+Time[receive direct] = 0.00003700
+Time[rpc obj put] = 0.00098800
+Time[receive direct] = 0.00002900
+Time[rpc obj put] = 0.00021600
+Time[receive direct] = 0.00003000
+Time[rpc obj put] = 0.00006300
+Time[receive direct] = 0.00002800
+Time[rpc obj put] = 0.00004000
+All ok.
+Job  /jobmgr/lsf8.0/8.0/linux2.6-glibc2.3-x86_64/bin/intelmpi_wrapper /home/xuewei/WORK/liangyaxiong/softwares/dataspaces-1.3.0/bin/dataspaces_server -s1 -c1
+
+TID   HOST_NAME   COMMAND_LINE            STATUS            TERMINATION_TIME
+===== ========== ================  =======================  ===================
+00000 c01b16     /home/xuewei/WOR  Done                     04/17/2014 00:07:55
+Sender: LSF System <lsfadmin@c01b16>
+Subject: Job 3184471: <mpirun.lsf /home/xuewei/WORK/liangyaxiong/softwares/dataspaces-1.3.0/bin/dataspaces_server -s1 -c1> Done
+
+Job <mpirun.lsf /home/xuewei/WORK/liangyaxiong/softwares/dataspaces-1.3.0/bin/dataspaces_server -s1 -c1> was submitted from host <c01b03> by user <xuewei> in cluster <cluster1>.
+Job was executed on host(s) <c01b16>, in queue <normal>, as user <xuewei> in cluster <cluster1>.
+</tmp/.lsbtmp526> was used as the home directory.
+</home/xuewei/WORK/liangyaxiong/projects/IO-Staging-for-LICOM/src/test_01> was used as the working directory.
+Started at Thu Apr 17 00:08:55 2014
+Results reported at Thu Apr 17 00:09:41 2014
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+mpirun.lsf /home/xuewei/WORK/liangyaxiong/softwares/dataspaces-1.3.0/bin/dataspaces_server -s1 -c1
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time   :      0.51 sec.
+    Max Memory :        21 MB
+    Max Swap   :       360 MB
+
+    Max Processes  :         6
+    Max Threads    :        10
+
+The output (if any) follows:
+
+'dsg_alloc()' config file loaded.
+'ds_boot_master()': all the peer are registered.2 1
+'ds_alloc()': init ok.
+Time[receive direct] = 0.23398500
+Time[rpc obj put] = 0.23422700
+Time[receive direct] = 0.00003700
+Time[rpc obj put] = 0.00098800
+Time[receive direct] = 0.00002900
+Time[rpc obj put] = 0.00021500
+Time[receive direct] = 0.00002900
+Time[rpc obj put] = 0.00006100
+Time[receive direct] = 0.00002800
+Time[rpc obj put] = 0.00004100
+All ok.
+Job  /jobmgr/lsf8.0/8.0/linux2.6-glibc2.3-x86_64/bin/intelmpi_wrapper /home/xuewei/WORK/liangyaxiong/softwares/dataspaces-1.3.0/bin/dataspaces_server -s1 -c1
+
+TID   HOST_NAME   COMMAND_LINE            STATUS            TERMINATION_TIME
+===== ========== ================  =======================  ===================
+00000 c01b16     /home/xuewei/WOR  Done                     04/17/2014 00:09:37
+Sender: LSF System <lsfadmin@c01b12>
+Subject: Job 3184474: <mpirun.lsf /home/xuewei/WORK/liangyaxiong/softwares/dataspaces-1.3.0/bin/dataspaces_server -s1 -c1> Done
+
+Job <mpirun.lsf /home/xuewei/WORK/liangyaxiong/softwares/dataspaces-1.3.0/bin/dataspaces_server -s1 -c1> was submitted from host <c01b03> by user <xuewei> in cluster <cluster1>.
+Job was executed on host(s) <c01b12>, in queue <normal>, as user <xuewei> in cluster <cluster1>.
+</tmp/.lsbtmp526> was used as the home directory.
+</home/xuewei/WORK/liangyaxiong/projects/IO-Staging-for-LICOM/src/test_01> was used as the working directory.
+Started at Thu Apr 17 00:10:39 2014
+Results reported at Thu Apr 17 00:11:35 2014
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+mpirun.lsf /home/xuewei/WORK/liangyaxiong/softwares/dataspaces-1.3.0/bin/dataspaces_server -s1 -c1
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time   :      0.58 sec.
+    Max Memory :        25 MB
+    Max Swap   :       364 MB
+
+    Max Processes  :         6
+    Max Threads    :        10
+
+The output (if any) follows:
+
+'dsg_alloc()' config file loaded.
+'ds_boot_master()': all the peer are registered.2 1
+'ds_alloc()': init ok.
+Time[receive direct] = 0.24638100
+Time[rpc obj put] = 0.24663800
+Time[receive direct] = 0.00004100
+Time[rpc obj put] = 0.00100100
+Time[receive direct] = 0.00003300
+Time[rpc obj put] = 0.00023100
+Time[receive direct] = 0.00004200
+Time[rpc obj put] = 0.00008800
+Time[receive direct] = 0.00002400
+Time[rpc obj put] = 0.00004100
+All ok.
+Job  /jobmgr/lsf8.0/8.0/linux2.6-glibc2.3-x86_64/bin/intelmpi_wrapper /home/xuewei/WORK/liangyaxiong/softwares/dataspaces-1.3.0/bin/dataspaces_server -s1 -c1
+
+TID   HOST_NAME   COMMAND_LINE            STATUS            TERMINATION_TIME
+===== ========== ================  =======================  ===================
+00000 c01b12     /home/xuewei/WOR  Done                     04/17/2014 00:11:17
