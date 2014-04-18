@@ -350,86 +350,86 @@ integer*8:: adios_groupsize,adios_totalsize,adios_handle,group_comm
         if(adios_err .ne. 0) write(6,*) 'proc:',mytid,'error in adios_group_size'
 
         error_sum=0
-        call adios_write(adios_handle,"ni_global",ni_global,adios_err)
+        call adios_write(adios_handle,"/dimensions/ni_global",ni_global,adios_err)
         error_sum = error_sum+adios_err
-        call adios_write(adios_handle,"nj_global",nj_global,adios_err)
+        call adios_write(adios_handle,"/dimensions/nj_global",nj_global,adios_err)
         error_sum = error_sum+adios_err
-        call adios_write(adios_handle,"nk_global",nk_global,adios_err)
+        call adios_write(adios_handle,"/dimensions/nk_global",nk_global,adios_err)
         error_sum = error_sum+adios_err
-        call adios_write(adios_handle,"ni_offset",ni_offset,adios_err)
+        call adios_write(adios_handle,"/aux/ni_offset",ni_offset,adios_err)
         error_sum = error_sum+adios_err
-        call adios_write(adios_handle,"nj_offset",nj_offset,adios_err)
+        call adios_write(adios_handle,"/aux/nj_offset",nj_offset,adios_err)
         error_sum = error_sum+adios_err
-        call adios_write(adios_handle,"nk_offset",nk_offset,adios_err)
+        call adios_write(adios_handle,"/aux/nk_offset",nk_offset,adios_err)
         error_sum = error_sum+adios_err
-        call adios_write(adios_handle,"ni_local",ni_local,adios_err)
+        call adios_write(adios_handle,"/aux/ni_local",ni_local,adios_err)
         error_sum = error_sum+adios_err
-        call adios_write(adios_handle,"nj_local",nj_local,adios_err)
+        call adios_write(adios_handle,"/aux/nj_local",nj_local,adios_err)
         error_sum = error_sum+adios_err
-        call adios_write(adios_handle,"nk_local",nk_local,adios_err)
+        call adios_write(adios_handle,"/aux/nk_local",nk_local,adios_err)
         error_sum = error_sum+adios_err
         if(error_sum .ne. 0) write(6,*) 'proc:',mytid,'error in writing dimensions'
 
         error_sum=0
-        call adios_write (adios_handle,"number_month",number_month,adios_err)
+        call adios_write (adios_handle,"/var/number_month",number_month,adios_err)
         error_sum = error_sum+adios_err
-        call adios_write (adios_handle,"number_day",number_day,adios_err)
+        call adios_write (adios_handle,"/var/number_day",number_day,adios_err)
         error_sum = error_sum+adios_err
 
-        call adios_write (adios_handle,"h0",h0(ni_start:ni_end, &
+        call adios_write (adios_handle,"/var/h0",h0(ni_start:ni_end, &
                                                nj_start:nj_end),&
                                                adios_err)
         error_sum = error_sum+adios_err
-        call adios_write (adios_handle,"u",u(ni_start:ni_end, &
+        call adios_write (adios_handle,"/var/u",u(ni_start:ni_end, &
                                              nj_start:nj_end, &
                                              nk_start:nk_end),&
                                              adios_err)
         error_sum = error_sum+adios_err
-        call adios_write (adios_handle,"v",v(ni_start:ni_end, &
+        call adios_write (adios_handle,"/var/v",v(ni_start:ni_end, &
                                              nj_start:nj_end, &
                                              nk_start:nk_end),&
                                              adios_err)
         error_sum = error_sum+adios_err
-        call adios_write (adios_handle,"at1",at(ni_start:ni_end, &
+        call adios_write (adios_handle,"/var/at1",at(ni_start:ni_end, &
                                                 nj_start:nj_end, &
                                                 nk_start:nk_end,1), &
                                                 adios_err)
         error_sum = error_sum+adios_err
-        call adios_write (adios_handle,"at2",at(ni_start:ni_end, &
+        call adios_write (adios_handle,"/var/at2",at(ni_start:ni_end, &
                                                 nj_start:nj_end, &
                                                 nk_start:nk_end,2), &
                                                 adios_err)
         error_sum = error_sum+adios_err
-        call adios_write (adios_handle,"ws",ws(ni_start:ni_end, &
+        call adios_write (adios_handle,"/var/ws",ws(ni_start:ni_end, &
                                                nj_start:nj_end, &
                                                nk_start:nk_end),&
                                                adios_err)
         error_sum = error_sum+adios_err
-        call adios_write (adios_handle,"su",su(ni_start:ni_end, &
+        call adios_write (adios_handle,"/var/su",su(ni_start:ni_end, &
                                                nj_start:nj_end),&
                                                adios_err)
         error_sum = error_sum+adios_err
-        call adios_write (adios_handle,"sv",sv(ni_start:ni_end, &
+        call adios_write (adios_handle,"/var/sv",sv(ni_start:ni_end, &
                                                nj_start:nj_end),&
                                                adios_err)
         error_sum = error_sum+adios_err
-        call adios_write (adios_handle,"swv",swv(ni_start:ni_end, &
+        call adios_write (adios_handle,"/var/swv",swv(ni_start:ni_end, &
                                                  nj_start:nj_end),&
                                                  adios_err)
         error_sum = error_sum+adios_err
-        call adios_write (adios_handle,"lwv",lwv(ni_start:ni_end, &
+        call adios_write (adios_handle,"/var/lwv",lwv(ni_start:ni_end, &
                                                  nj_start:nj_end),&
                                                  adios_err)
         error_sum = error_sum+adios_err
-        call adios_write (adios_handle,"sshf",sshf(ni_start:ni_end, &
+        call adios_write (adios_handle,"/var/sshf",sshf(ni_start:ni_end, &
                                                    nj_start:nj_end),&
                                                    adios_err)
         error_sum = error_sum+adios_err
-        call adios_write (adios_handle,"lthf",lthf(ni_start:ni_end, &
+        call adios_write (adios_handle,"/var/lthf",lthf(ni_start:ni_end, &
                                                    nj_start:nj_end),&
                                                    adios_err)
         error_sum = error_sum+adios_err
-        call adios_write (adios_handle,"fresh",fresh(ni_start:ni_end, &
+        call adios_write (adios_handle,"/var/fresh",fresh(ni_start:ni_end, &
                                                      nj_start:nj_end),&
                                                      adios_err)
         error_sum = error_sum+adios_err
@@ -473,31 +473,31 @@ integer*8:: adios_groupsize,adios_totalsize,adios_handle,group_comm
         q(imt,:)=spval
      endif
 
-        call adios_write (adios_handle,"t_cpl",t_cpl(ni_start:ni_end, &
+        call adios_write (adios_handle,"/var/t_cpl",t_cpl(ni_start:ni_end, &
                                                      nj_start:nj_end),&
                                                      adios_err)
         error_sum = error_sum+adios_err
-        call adios_write (adios_handle,"s_cpl",s_cpl(ni_start:ni_end, &
+        call adios_write (adios_handle,"/var/s_cpl",s_cpl(ni_start:ni_end, &
                                                      nj_start:nj_end),&
                                                      adios_err)
         error_sum = error_sum+adios_err
-        call adios_write (adios_handle,"u_cpl",u_cpl(ni_start:ni_end, &
+        call adios_write (adios_handle,"/var/u_cpl",u_cpl(ni_start:ni_end, &
                                                      nj_start:nj_end),&
                                                      adios_err)
         error_sum = error_sum+adios_err
-        call adios_write (adios_handle,"v_cpl",v_cpl(ni_start:ni_end, &
+        call adios_write (adios_handle,"/var/v_cpl",v_cpl(ni_start:ni_end, &
                                                      nj_start:nj_end),&
                                                      adios_err)
         error_sum = error_sum+adios_err
-        call adios_write (adios_handle,"dhdx",dhdx(ni_start:ni_end, &
+        call adios_write (adios_handle,"/var/dhdx",dhdx(ni_start:ni_end, &
                                                      nj_start:nj_end),&
                                                      adios_err)
         error_sum = error_sum+adios_err
-        call adios_write (adios_handle,"dhdy",dhdy(ni_start:ni_end, &
+        call adios_write (adios_handle,"/var/dhdy",dhdy(ni_start:ni_end, &
                                                      nj_start:nj_end),&
                                                      adios_err)
         error_sum = error_sum+adios_err
-        call adios_write (adios_handle,"q",q(ni_start:ni_end, &
+        call adios_write (adios_handle,"/var/q",q(ni_start:ni_end, &
                                                      nj_start:nj_end),&
                                                      adios_err)
         error_sum = error_sum+adios_err
