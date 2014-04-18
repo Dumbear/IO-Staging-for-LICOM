@@ -60,7 +60,8 @@ integer            :: ntim   ! temporary
 character (len=21) :: fname
 integer   :: gcnt,var_count,attr_count,tmp,adios_err
 integer*8 :: adios_groupsize,adios_totalsize,adios_handle, &
-             gh,adios_buf_size,read_bytes,total_bytes
+             gh,adios_buf_size,read_bytes,total_bytes, &
+             selection_2d, selection_3d
 integer*8,dimension(0:2) :: starts_2d, starts_3d, &
                             count_2d, count_3d
 
@@ -72,20 +73,14 @@ integer*8,dimension(0:2) :: starts_2d, starts_3d, &
     endif 
 
     call mpi_bcast(fname,21,mpi_character,0,mpi_comm_ocn,adios_err)
- 
-    total_bytes =0
 
-    call adios_fopen (adios_handle,fname,mpi_comm_self,gcnt,adios_err)
-    if(adios_err .ne. 0) write(6,*) 'proc:',mytid,'error in adios_fopen'
+    call adios_read_open_file(adios_handle, fname, ADIOS_READ_METHOD_BP, mpi_comm_ocn, adios_err)
+    if(adios_err .ne. 0) write(6,*) 'proc:',mytid,'error in adios_read_open_file'
 
-    call adios_gopen (adios_handle, gh,"ssaveins",var_count,attr_count,adios_err)
-    if(adios_err .ne. 0) write(6,*) 'proc:',mytid,'error in adios_gopen'
-
-    call adios_read_var (gh,"/var/number_month",0,1,number_month,read_bytes)
-    month=number_month
-    total_bytes=total_bytes+read_bytes
-    call adios_read_var (gh,"/var/number_day",0,1,number_day,read_bytes )
-    total_bytes=total_bytes+read_bytes
+    call adios_schedule_read(adios_handle, null, '/var/number_month', 0, 1, number_month, adios_err)
+    call adios_schedule_read(adios_handle, null, '/var/number_day', 0, 1, number_day, adios_err)
+    call adios_perform_reads(adios_handle, adios_err)
+    month = number_month
 
     count_2d(0)=imt
     count_2d(1)=jmt
@@ -109,22 +104,15 @@ integer*8,dimension(0:2) :: starts_2d, starts_3d, &
     !write(6,*) 'READ proc:',mytid,'I: ',count_2d(0),starts_2d(0)
     !write(6,*) 'READ proc:',mytid,'J: ',count_2d(1),starts_2d(1)
 
-    call adios_read_var(gh,"/var/h0" ,starts_2d,count_2d, &
-                        h0(1:count_2d(0),1:count_2d(1)),read_bytes)
-    total_bytes=total_bytes+read_bytes
-    call adios_read_var(gh,"/var/u"  ,starts_3d,count_3d, &
-                        u(1:count_3d(0),1:count_3d(1),1:count_3d(2)),read_bytes)
-    total_bytes=total_bytes+read_bytes
-    call adios_read_var(gh,"/var/v"  ,starts_3d,count_3d, &
-                        v(1:count_3d(0),1:count_3d(1),1:count_3d(2)),read_bytes)
-    total_bytes=total_bytes+read_bytes
-    call adios_read_var(gh,"/var/at1",starts_3d,count_3d, &
-                        at(1:count_3d(0),1:count_3d(1),1:count_3d(2),1),read_bytes)
-    total_bytes=total_bytes+read_bytes
-    call adios_read_var(gh,"/var/at2",starts_3d,count_3d, &
-                        at(1:count_3d(0),1:count_3d(1),1:count_3d(2),2),read_bytes)
-    total_bytes=total_bytes+read_bytes
-    !write(6,*) 'proc:',mytid,'read total_bytes is',total_bytes
+    call adios_selection_boundingbox(selection_2d, 2, starts_2d, count_2d)
+    call adios_selection_boundingbox(selection_3d, 3, starts_3d, count_3d)
+
+    call adios_schedule_read(adios_handle, selection_2d, '/var/h0', 0, 1, h0(1:count_2d(0), 1:count_2d(1)), adios_err)
+    call adios_schedule_read(adios_handle, selection_3d, '/var/u', 0, 1, u(1:count_3d(0), 1:count_3d(1), 1:count_3d(2)), adios_err)
+    call adios_schedule_read(adios_handle, selection_3d, '/var/v', 0, 1, v(1:count_3d(0), 1:count_3d(1), 1:count_3d(2)), adios_err)
+    call adios_schedule_read(adios_handle, selection_3d, '/var/at1', 0, 1, at(1:count_3d(0), 1:count_3d(1), 1:count_3d(2), 1), adios_err)
+    call adios_schedule_read(adios_handle, selection_3d, '/var/at2', 0, 1, at(1:count_3d(0), 1:count_3d(1), 1:count_3d(2), 2), adios_err)
+    call adios_perform_reads(adios_handle, adios_err)
 
 #ifdef COUP
      if (nstart==2) then
@@ -148,36 +136,23 @@ integer*8,dimension(0:2) :: starts_2d, starts_3d, &
             end do
             end do
         else
-        call adios_read_var(gh,"/var/t_cpl" ,starts_2d,count_2d, &
-                        t_cpl(1:count_2d(0),1:count_2d(1)),read_bytes)
-          total_bytes=total_bytes+read_bytes
-         call adios_read_var(gh,"/var/s_cpl" ,starts_2d,count_2d, &
-                        s_cpl(1:count_2d(0),1:count_2d(1)),read_bytes)
-          total_bytes=total_bytes+read_bytes
-         call adios_read_var(gh,"/var/u_cpl" ,starts_2d,count_2d, &
-                        u_cpl(1:count_2d(0),1:count_2d(1)),read_bytes)
-          total_bytes=total_bytes+read_bytes
-          call adios_read_var(gh,"/var/v_cpl" ,starts_2d,count_2d, &
-                        v_cpl(1:count_2d(0),1:count_2d(1)),read_bytes)
-          total_bytes=total_bytes+read_bytes
-          call adios_read_var(gh,"/var/dhdx" ,starts_2d,count_2d, &
-                        dhdx(1:count_2d(0),1:count_2d(1)),read_bytes)
-          total_bytes=total_bytes+read_bytes
-          call adios_read_var(gh,"/var/dhdy" ,starts_2d,count_2d, &
-                        dhdy(1:count_2d(0),1:count_2d(1)),read_bytes)
-          total_bytes=total_bytes+read_bytes
-          call adios_read_var(gh,"/var/q" ,starts_2d,count_2d, &
-                        q(1:count_2d(0),1:count_2d(1)),read_bytes)
-          total_bytes=total_bytes+read_bytes
+
+        call adios_schedule_read(adios_handle, selection_2d, '/var/t_cpl', 0, 1, t_cpl(1:count_2d(0), 1:count_2d(1)), adios_err)
+        call adios_schedule_read(adios_handle, selection_2d, '/var/s_cpl', 0, 1, s_cpl(1:count_2d(0), 1:count_2d(1)), adios_err)
+        call adios_schedule_read(adios_handle, selection_2d, '/var/u_cpl', 0, 1, u_cpl(1:count_2d(0), 1:count_2d(1)), adios_err)
+        call adios_schedule_read(adios_handle, selection_2d, '/var/v_cpl', 0, 1, v_cpl(1:count_2d(0), 1:count_2d(1)), adios_err)
+        call adios_schedule_read(adios_handle, selection_2d, '/var/dhdx', 0, 1, dhdx(1:count_2d(0), 1:count_2d(1)), adios_err)
+        call adios_schedule_read(adios_handle, selection_2d, '/var/dhdy', 0, 1, dhdy(1:count_2d(0), 1:count_2d(1)), adios_err)
+        call adios_schedule_read(adios_handle, selection_2d, '/var/q', 0, 1, q(1:count_2d(0), 1:count_2d(1)), adios_err)
+        call adios_perform_reads(adios_handle, adios_err)
+
         endif
 #endif
    write(*,*) 'number_month =',number_month,'mon0=',mon0,&
                        'number_day=',number_day,'iday=',iday
-    
-    call adios_gclose(gh, adios_err)
-    if(adios_err .ne. 0) write(6,*) 'proc:',mytid,'error in adios_gclose'
-    call adios_fclose(adios_handle, adios_err)
-    if(adios_err .ne. 0) write(6,*) 'proc:',mytid,'error in adios_fclose'
+
+    call adios_read_close(adios_handle, adios_err)
+    if(adios_err .ne. 0) write(6,*) 'proc:',mytid,'error in adios_read_close'
 
     if((iy==ny_proc-1).and.((j_start(mytid+1)+jmt-1)>jmt_global)) then
         tmp=jmt_global-j_start(mytid+1)+1+1
