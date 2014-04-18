@@ -7,9 +7,10 @@
 subroutine start_adios
 #include <def-undef.h>
 use param_mod, only:mytid
+use msg_mod, only: mpi_comm_ocn
 integer :: adios_err
 
-    call adios_init ("licom2.xml", adios_err)
+    call adios_init ("licom2.xml", mpi_comm_ocn, adios_err)
     if(adios_err .ne. 1) write(6,*) 'proc:',mytid, &
                                     'error in adios_init',adios_err
 end subroutine start_adios
