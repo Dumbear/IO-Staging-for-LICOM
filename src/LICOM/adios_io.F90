@@ -11,7 +11,7 @@ use msg_mod, only: mpi_comm_ocn
 integer :: adios_err
 
     call adios_init ("licom2.xml", mpi_comm_ocn, adios_err)
-    if(adios_err .ne. 1) write(6,*) 'proc:',mytid, &
+    if(adios_err .ne. 0) write(6,*) 'proc:',mytid, &
                                     'error in adios_init',adios_err
 end subroutine start_adios
 
@@ -30,6 +30,7 @@ end subroutine end_adios
 !   only use the basic method
 !   overlapping area between processes is not stored in file
 subroutine inirun_adios_read_noneoverlap
+use adios_read_mod
 #include <def-undef.h>
 use param_mod
 use pconst_mod
@@ -64,6 +65,7 @@ integer*8 :: adios_groupsize,adios_totalsize,adios_handle, &
              selection_2d, selection_3d
 integer*8,dimension(0:2) :: starts_2d, starts_3d, &
                             count_2d, count_3d
+real(r8), dimension(:, :, :), allocatable :: buf_3d
 
     if (mytid==0) then
         write(6,*) "beginning of inirun_adios_read_noneoverlap !"
@@ -77,8 +79,8 @@ integer*8,dimension(0:2) :: starts_2d, starts_3d, &
     call adios_read_open_file(adios_handle, fname, ADIOS_READ_METHOD_BP, mpi_comm_ocn, adios_err)
     if(adios_err .ne. 0) write(6,*) 'proc:',mytid,'error in adios_read_open_file'
 
-    call adios_schedule_read(adios_handle, null, '/var/number_month', 0, 1, number_month, adios_err)
-    call adios_schedule_read(adios_handle, null, '/var/number_day', 0, 1, number_day, adios_err)
+    call adios_schedule_read(adios_handle, 0_8, '/var/number_month', 0, 1, number_month, adios_err)
+    call adios_schedule_read(adios_handle, 0_8, '/var/number_day', 0, 1, number_day, adios_err)
     call adios_perform_reads(adios_handle, adios_err)
     month = number_month
 
@@ -104,15 +106,31 @@ integer*8,dimension(0:2) :: starts_2d, starts_3d, &
     !write(6,*) 'READ proc:',mytid,'I: ',count_2d(0),starts_2d(0)
     !write(6,*) 'READ proc:',mytid,'J: ',count_2d(1),starts_2d(1)
 
+    allocate(buf_3d(1:count_3d(0), 1:count_3d(1), 1:count_3d(2)))
+
     call adios_selection_boundingbox(selection_2d, 2, starts_2d, count_2d)
     call adios_selection_boundingbox(selection_3d, 3, starts_3d, count_3d)
 
     call adios_schedule_read(adios_handle, selection_2d, '/var/h0', 0, 1, h0(1:count_2d(0), 1:count_2d(1)), adios_err)
-    call adios_schedule_read(adios_handle, selection_3d, '/var/u', 0, 1, u(1:count_3d(0), 1:count_3d(1), 1:count_3d(2)), adios_err)
-    call adios_schedule_read(adios_handle, selection_3d, '/var/v', 0, 1, v(1:count_3d(0), 1:count_3d(1), 1:count_3d(2)), adios_err)
-    call adios_schedule_read(adios_handle, selection_3d, '/var/at1', 0, 1, at(1:count_3d(0), 1:count_3d(1), 1:count_3d(2), 1), adios_err)
-    call adios_schedule_read(adios_handle, selection_3d, '/var/at2', 0, 1, at(1:count_3d(0), 1:count_3d(1), 1:count_3d(2), 2), adios_err)
     call adios_perform_reads(adios_handle, adios_err)
+
+    call adios_schedule_read(adios_handle, selection_3d, '/var/u', 0, 1, buf_3d, adios_err)
+    call adios_perform_reads(adios_handle, adios_err)
+    u(1:count_3d(0), 1:count_3d(1), 1:count_3d(2)) = buf_3d
+
+    call adios_schedule_read(adios_handle, selection_3d, '/var/v', 0, 1, buf_3d, adios_err)
+    call adios_perform_reads(adios_handle, adios_err)
+    v(1:count_3d(0), 1:count_3d(1), 1:count_3d(2)) = buf_3d
+
+    call adios_schedule_read(adios_handle, selection_3d, '/var/at1', 0, 1, buf_3d, adios_err)
+    call adios_perform_reads(adios_handle, adios_err)
+    at(1:count_3d(0), 1:count_3d(1), 1:count_3d(2), 1) = buf_3d
+
+    call adios_schedule_read(adios_handle, selection_3d, '/var/at2', 0, 1, buf_3d, adios_err)
+    call adios_perform_reads(adios_handle, adios_err)
+    at(1:count_3d(0), 1:count_3d(1), 1:count_3d(2), 2) = buf_3d
+
+    deallocate(buf_3d)
 
 #ifdef COUP
      if (nstart==2) then
