@@ -73,161 +73,174 @@
     <var name="/aux/nk3_local" type="integer" />
 
     <!-- 3D|2D array written -->
-    <!--<global-bounds dimensions="ni_global" offsets="ni_offset">
-      <var name="lon" path="/var" type="real*4" dimensions="ni_local" />
+    <global-bounds dimensions="/dimensions/ni_global" offsets="/aux/ni_offset">
+      <var name="/var/lon" type="real*4" dimensions="/aux/ni_local" />
     </global-bounds>
-    <attribute name="long_name" path="/var/lon" value="longitude (on T grids)" />
-    <attribute name="units" path="/var/lon" value="degrees_east" />
-    <global-bounds dimensions="nj_global" offsets="nj_offset">
-      <var name="lat" path="/var" type="real*4" dimensions="nj_local" />
+    <attribute name="/var/lon/long_name" value="longitude (on T grids)" />
+    <attribute name="/var/lon/units" value="degrees_east" />
+
+    <global-bounds dimensions="/dimensions/nj_global" offsets="/aux/nj_offset">
+      <var name="/var/lat" type="real*4" dimensions="/aux/nj_local" />
     </global-bounds>
-    <attribute name="long_name" path="/var/lat" value="latitude (on T grids)" />
-    <attribute name="units" path="/var/lat" value="degrees_north" />
-    <global-bounds dimensions="nk1_global" offsets="nk_offset">
-      <var name="lev" path="/var" type="real*4" dimensions="nk1_local" />
+    <attribute name="/var/lat/long_name" value="latitude (on T grids)" />
+    <attribute name="/var/lat/units" value="degrees_north" />
+
+    <global-bounds dimensions="/dimensions/nk1_global" offsets="/aux/nk_offset">
+      <var name="/var/lev" type="real*4" dimensions="/aux/nk1_local" />
     </global-bounds>
-    <global-bounds dimensions="nk2_global" offsets="nk_offset">
-      <var name="lev1" path="/var" type="real*4" dimensions="nk2_local" />
+    <global-bounds dimensions="/dimensions/nk2_global" offsets="/aux/nk_offset">
+      <var name="/var/lev1" type="real*4" dimensions="/aux/nk2_local" />
     </global-bounds>
-    <attribute name="long_name" path="/var/lev" value="depth (on T grids)" />
-    <attribute name="units" path="/var/lev" value="meter" />
-    <attribute name="long_name" path="/var/lev1" value="depth (on V grids)" />
-    <attribute name="units" path="/var/lev1" value="meter" />
-    <var name="time" path="/var" type="real*8" />
-    <attribute name="long_name" path="/var/time" value="time" />
-    <attribute name="units" path="/var/time" value="months since 0001-01-01" />
-    <var name="spval" path="/var" type="real*4" />
-    <global-bounds dimensions="ni_global,nj_global" offsets="ni_offset,nj_offset">
-      <var name="z0" path="/var" type="real*4" dimensions="ni_local,nj_local" />
-      <var name="hi" path="/var" type="real*4" dimensions="ni_local,nj_local" />
-      <var name="hd" path="/var" type="real*4" dimensions="ni_local,nj_local" />
-      <var name="ic1" path="/var" type="real*4" dimensions="ni_local,nj_local" />
-      <var name="ic2" path="/var" type="real*4" dimensions="ni_local,nj_local" />
-      <var name="net1" path="/var" type="real*4" dimensions="ni_local,nj_local" />
-      <var name="net2" path="/var" type="real*4" dimensions="ni_local,nj_local" />
-      <var name="mld" path="/var" type="real*4" dimensions="ni_local,nj_local" />
+    <attribute name="/var/lev/long_name" value="depth (on T grids)" />
+    <attribute name="/var/lev/units" value="meter" />
+    <attribute name="/var/lev1/long_name" value="depth (on V grids)" />
+    <attribute name="/var/lev1/units" value="meter" />
+
+    <var name="/var/time" type="real*8" />
+    <attribute name="/var/time/long_name" value="time" />
+    <attribute name="/var/time/units" value="months since 0001-01-01" />
+    <var name="/var/spval" type="real*4" />
+
+    <global-bounds dimensions="/dimensions/ni_global,/dimensions/nj_global" offsets="/aux/ni_offset,/aux/nj_offset">
+      <var name="/var/z0"   type="real*4" dimensions="/aux/ni_local,/aux/nj_local" />
+      <var name="/var/hi"   type="real*4" dimensions="/aux/ni_local,/aux/nj_local" />
+      <var name="/var/hd"   type="real*4" dimensions="/aux/ni_local,/aux/nj_local" />
+      <var name="/var/ic1"  type="real*4" dimensions="/aux/ni_local,/aux/nj_local" />
+      <var name="/var/ic2"  type="real*4" dimensions="/aux/ni_local,/aux/nj_local" />
+      <var name="/var/net1" type="real*4" dimensions="/aux/ni_local,/aux/nj_local" />
+      <var name="/var/net2" type="real*4" dimensions="/aux/ni_local,/aux/nj_local" />
+      <var name="/var/mld"  type="real*4" dimensions="/aux/ni_local,/aux/nj_local" />
     </global-bounds>
-    <attribute name="long_name" path="/var/z0" value="sea surface height" />
-    <attribute name="units" path="/var/z0" value="meter" />
-    <attribute name="_FillValue" path="/var/z0" var="spval" />
-    <attribute name="long_name" path="/var/hi" value="concentration of ice in one grid" />
-    <attribute name="units" path="/var/hi" value="%" />
-    <attribute name="_FillValue" path="/var/hi" var="spval" />
-    <attribute name="long_name" path="/var/hd" value="salt flux" />
-    <attribute name="units" path="/var/hd" value="kg/m2/s" />
-    <attribute name="_FillValue" path="/var/hd" var="spval" />
-    <attribute name="long_name" path="/var/ic1" value="total number of levels involved in convection per day" />
-    <attribute name="units" path="/var/ic1" value="levels" />
-    <attribute name="_FillValue" path="/var/ic1" var="spval" />
-    <attribute name="long_name" path="/var/ic2" value="number of levels ventilated per day" />
-    <attribute name="units" path="/var/ic2" value="levels" />
-    <attribute name="_FillValue" path="/var/ic2" var="spval" />
-    <attribute name="long_name" path="/var/net1" value="net surface heat flux" />
-    <attribute name="units" path="/var/net1" value="W/m^2" />
-    <attribute name="_FillValue" path="/var/net1" var="spval" />
-    <attribute name="long_name" path="/var/net2" value="net surface freshwater flux" />
-    <attribute name="units" path="/var/net2" value="kg/m2/s" />
-    <attribute name="_FillValue" path="/var/net2" var="spval" />
-    <attribute name="long_name" path="/var/mld" value="mixed layer depth" />
-    <attribute name="units" path="/var/net2" value="m" />
-    <attribute name="_FillValue" path="/var/net2" var="spval" />
-    <global-bounds dimensions="ni_global,nj_global,nk3_global" offsets="ni_offset,nj_offset,nk_offset">
-      <var name="akm" path="/var" type="real*4" dimensions="ni_local,nj_local,nk3_local" />
-      <var name="akt" path="/var" type="real*4" dimensions="ni_local,nj_local,nk3_local" />
-      <var name="aks" path="/var" type="real*4" dimensions="ni_local,nj_local,nk3_local" />
-      <var name="akmb" path="/var" type="real*4" dimensions="ni_local,nj_local,nk3_local" />
-      <var name="aktb" path="/var" type="real*4" dimensions="ni_local,nj_local,nk3_local" />
-      <var name="aksb" path="/var" type="real*4" dimensions="ni_local,nj_local,nk3_local" />
-      <var name="aktide" path="/var" type="real*4" dimensions="ni_local,nj_local,nk3_local" />
-      <var name="ts" path="/var" type="real*4" dimensions="ni_local,nj_local,nk3_local" />
-      <var name="ss" path="/var" type="real*4" dimensions="ni_local,nj_local,nk3_local" />
-      <var name="ws" path="/var" type="real*4" dimensions="ni_local,nj_local,nk3_local" />
-      <var name="us" path="/var" type="real*4" dimensions="ni_local,nj_local,nk3_local" />
-      <var name="vs" path="/var" type="real*4" dimensions="ni_local,nj_local,nk3_local" />
+
+    <attribute name="/var/z0/long_name" value="sea surface height" />
+    <attribute name="/var/z0/units" value="meter" />
+    <attribute name="/var/z0/_FillValue" var="/var/spval" />
+    <attribute name="/var/hi/long_name" value="concentration of ice in one grid" />
+    <attribute name="/var/hi/units" value="%" />
+    <attribute name="/var/hi/_FillValue" var="/var/spval" />
+    <attribute name="/var/hd/long_name" value="salt flux" />
+    <attribute name="/var/hd/units" value="kg/m2/s" />
+    <attribute name="/var/hd/_FillValue" var="/var/spval" />
+    <attribute name="/var/ic1/long_name" value="total number of levels involved in convection per day" />
+    <attribute name="/var/ic1/units" value="levels" />
+    <attribute name="/var/ic1/_FillValue" var="/var/spval" />
+    <attribute name="/var/ic2/long_name" value="number of levels ventilated per day" />
+    <attribute name="/var/ic2/units" value="levels" />
+    <attribute name="/var/ic2/_FillValue" var="/var/spval" />
+    <attribute name="/var/net1/long_name" value="net surface heat flux" />
+    <attribute name="/var/net1/units" value="W/m^2" />
+    <attribute name="/var/net1/_FillValue" var="/var/spval" />
+    <attribute name="/var/net2/long_name" value="net surface freshwater flux" />
+    <attribute name="/var/net2/units" value="kg/m2/s" />
+    <attribute name="/var/net2/_FillValue" var="/var/spval" />
+    <attribute name="/var/mld/long_name" value="mixed layer depth" />
+    <attribute name="/var/net2/units" value="m" />
+    <attribute name="/var/net2/_FillValue" var="/var/spval" />
+
+    <global-bounds dimensions="/dimensions/ni_global,/dimensions/nj_global,/dimensions/nk3_global" offsets="/aux/ni_offset,/aux/nj_offset,/aux/nk_offset">
+      <var name="/var/akm"    type="real*4" dimensions="/aux/ni_local,/aux/nj_local,/aux/nk3_local" />
+      <var name="/var/akt"    type="real*4" dimensions="/aux/ni_local,/aux/nj_local,/aux/nk3_local" />
+      <var name="/var/aks"    type="real*4" dimensions="/aux/ni_local,/aux/nj_local,/aux/nk3_local" />
+      <var name="/var/akmb"   type="real*4" dimensions="/aux/ni_local,/aux/nj_local,/aux/nk3_local" />
+      <var name="/var/aktb"   type="real*4" dimensions="/aux/ni_local,/aux/nj_local,/aux/nk3_local" />
+      <var name="/var/aksb"   type="real*4" dimensions="/aux/ni_local,/aux/nj_local,/aux/nk3_local" />
+      <var name="/var/aktide" type="real*4" dimensions="/aux/ni_local,/aux/nj_local,/aux/nk3_local" />
+      <var name="/var/ts"     type="real*4" dimensions="/aux/ni_local,/aux/nj_local,/aux/nk3_local" />
+      <var name="/var/ss"     type="real*4" dimensions="/aux/ni_local,/aux/nj_local,/aux/nk3_local" />
+      <var name="/var/ws"     type="real*4" dimensions="/aux/ni_local,/aux/nj_local,/aux/nk3_local" />
+      <var name="/var/us"     type="real*4" dimensions="/aux/ni_local,/aux/nj_local,/aux/nk3_local" />
+      <var name="/var/vs"     type="real*4" dimensions="/aux/ni_local,/aux/nj_local,/aux/nk3_local" />
     </global-bounds>
-    <attribute name="long_name" path="/var/akm" value="vertical viscosity" />
-    <attribute name="units" path="/var/akm" value="m^2/s" />
-    <attribute name="_FillValue" path="/var/akm" var="spval" />
-    <attribute name="long_name" path="/var/akt" value="vertical diffusivity for temperature" />
-    <attribute name="units" path="/var/akt" value="m^2/s" />
-    <attribute name="_FillValue" path="/var/akt" var="spval" />
-    <attribute name="long_name" path="/var/aks" value="vertical diffusivity for salt" />
-    <attribute name="units" path="/var/aks" value="m^2/s" />
-    <attribute name="_FillValue" path="/var/aks" var="spval" />
-    <attribute name="long_name" path="/var/akmb" value="background vertical viscosity" />
-    <attribute name="units" path="/var/akmb" value="m^2/s" />
-    <attribute name="_FillValue" path="/var/akmb" var="spval" />
-    <attribute name="long_name" path="/var/aktb" value="background vertical diffusivity for temperature" />
-    <attribute name="units" path="/var/aktb" value="m^2/s" />
-    <attribute name="_FillValue" path="/var/aktb" var="spval" />
-    <attribute name="long_name" path="/var/aksb" value="background vertical diffusivity for salt" />
-    <attribute name="units" path="/var/aksb" value="m^2/s" />
-    <attribute name="_FillValue" path="/var/aksb" var="spval" />
-    <attribute name="long_name" path="/var/aktide" value="background vertical diffusivity due to tide" />
-    <attribute name="units" path="/var/aktide" value="m^2/s" />
-    <attribute name="_FillValue" path="/var/aktide" var="spval" />
-    <attribute name="long_name" path="/var/ts" value="temperature" />
-    <attribute name="units" path="/var/ts" value="centigrade" />
-    <attribute name="_FillValue" path="/var/ts" var="spval" />
-    <attribute name="long_name" path="/var/ss" value="salinity" />
-    <attribute name="units" path="/var/ss" value="psu" />
-    <attribute name="_FillValue" path="/var/ss" var="spval" />
-    <attribute name="long_name" path="/var/ws" value="vertical current" />
-    <attribute name="units" path="/var/ws" value="m/s" />
-    <attribute name="_FillValue" path="/var/ws" var="spval" />
-    <attribute name="long_name" path="/var/us" value="zonal current" />
-    <attribute name="units" path="/var/us" value="m/s" />
-    <attribute name="_FillValue" path="/var/us" var="spval" />
-    <attribute name="long_name" path="/var/vs" value="meridional current" />
-    <attribute name="units" path="/var/vs" value="m/s" />
-    <attribute name="_FillValue" path="/var/vs" var="spval" />
-    <global-bounds dimensions="ni_global,nj_global" offsets="ni_offset,nj_offset">
-      <var name="su" path="/var" type="real*4" dimensions="ni_local,nj_local" />
-      <var name="sv" path="/var" type="real*4" dimensions="ni_local,nj_local" />
-      <var name="lthf" path="/var" type="real*4" dimensions="ni_local,nj_local" />
-      <var name="sshf" path="/var" type="real*4" dimensions="ni_local,nj_local" />
-      <var name="lwv" path="/var" type="real*4" dimensions="ni_local,nj_local" />
-      <var name="swv" path="/var" type="real*4" dimensions="ni_local,nj_local" />
+
+    <attribute name="/var/akm/long_name" value="vertical viscosity" />
+    <attribute name="/var/akm/units" value="m^2/s" />
+    <attribute name="/var/akm/_FillValue" var="/var/spval" />
+    <attribute name="/var/akt/long_name" value="vertical diffusivity for temperature" />
+    <attribute name="/var/akt/units" value="m^2/s" />
+    <attribute name="/var/akt/_FillValue" var="/var/spval" />
+    <attribute name="/var/aks/long_name" value="vertical diffusivity for salt" />
+    <attribute name="/var/aks/units" value="m^2/s" />
+    <attribute name="/var/aks/_FillValue" var="/var/spval" />
+    <attribute name="/var/akmb/long_name" value="background vertical viscosity" />
+    <attribute name="/var/akmb/units" value="m^2/s" />
+    <attribute name="/var/akmb/_FillValue" var="/var/spval" />
+    <attribute name="/var/aktb/long_name" value="background vertical diffusivity for temperature" />
+    <attribute name="/var/aktb/units" value="m^2/s" />
+    <attribute name="/var/aktb/_FillValue" var="/var/spval" />
+    <attribute name="/var/aksb/long_name" value="background vertical diffusivity for salt" />
+    <attribute name="/var/aksb/units" value="m^2/s" />
+    <attribute name="/var/aksb/_FillValue" var="/var/spval" />
+    <attribute name="/var/aktide/long_name" value="background vertical diffusivity due to tide" />
+    <attribute name="/var/aktide/units" value="m^2/s" />
+    <attribute name="/var/aktide/_FillValue" var="/var/spval" />
+    <attribute name="/var/ts/long_name" value="temperature" />
+    <attribute name="/var/ts/units" value="centigrade" />
+    <attribute name="/var/ts/_FillValue" var="/var/spval" />
+    <attribute name="/var/ss/long_name" value="salinity" />
+    <attribute name="/var/ss/units" value="psu" />
+    <attribute name="/var/ss/_FillValue" var="/var/spval" />
+    <attribute name="/var/ws/long_name" value="vertical current" />
+    <attribute name="/var/ws/units" value="m/s" />
+    <attribute name="/var/ws/_FillValue" var="/var/spval" />
+    <attribute name="/var/us/long_name" value="zonal current" />
+    <attribute name="/var/us/units" value="m/s" />
+    <attribute name="/var/us/_FillValue" var="/var/spval" />
+    <attribute name="/var/vs/long_name" value="meridional current" />
+    <attribute name="/var/vs/units" value="m/s" />
+    <attribute name="/var/vs/_FillValue" var="/var/spval" />
+
+    <global-bounds dimensions="/dimensions/ni_global,/dimensions/nj_global" offsets="/aux/ni_offset,/aux/nj_offset">
+      <var name="/var/su"   type="real*4" dimensions="/aux/ni_local,/aux/nj_local" />
+      <var name="/var/sv"   type="real*4" dimensions="/aux/ni_local,/aux/nj_local" />
+      <var name="/var/lthf" type="real*4" dimensions="/aux/ni_local,/aux/nj_local" />
+      <var name="/var/sshf" type="real*4" dimensions="/aux/ni_local,/aux/nj_local" />
+      <var name="/var/lwv"  type="real*4" dimensions="/aux/ni_local,/aux/nj_local" />
+      <var name="/var/swv"  type="real*4" dimensions="/aux/ni_local,/aux/nj_local" />
     </global-bounds>
-    <attribute name="long_name" path="/var/su" value="Uwindstress" />
-    <attribute name="units" path="/var/su" value="Pa" />
-    <attribute name="_FillValue" path="/var/su" var="spval" />
-    <attribute name="long_name" path="/var/sv" value="Vwindstress" />
-    <attribute name="units" path="/var/sv" value="Pa" />
-    <attribute name="_FillValue" path="/var/sv" var="spval" />
-    <attribute name="long_name" path="/var/lthf" value="latent heat flux" />
-    <attribute name="units" path="/var/lthf" value="W/m^2" />
-    <attribute name="_FillValue" path="/var/lthf" var="spval" />
-    <attribute name="long_name" path="/var/sshf" value="sensible heat flux" />
-    <attribute name="units" path="/var/sshf" value="W/m^2" />
-    <attribute name="_FillValue" path="/var/sshf" var="spval" />
-    <attribute name="long_name" path="/var/lwv" value="Longwave" />
-    <attribute name="units" path="/var/lwv" value="W/m^2" />
-    <attribute name="_FillValue" path="/var/lwv" var="spval" />
-    <attribute name="long_name" path="/var/swv" value="Shortwave" />
-    <attribute name="units" path="/var/swv" value="W/m^2" />
-    <attribute name="_FillValue" path="/var/swv" var="spval" />
-    <global-bounds dimensions="ni_global,nj_global,nk3_global" offsets="ni_offset,nj_offset,nk_offset">
-      <var name="ustar" path="/var" type="real*4" dimensions="ni_local,nj_local,nk3_local" />
-      <var name="vstar" path="/var" type="real*4" dimensions="ni_local,nj_local,nk3_local" />
-      <var name="wstar" path="/var" type="real*4" dimensions="ni_local,nj_local,nk3_local" />
+
+    <attribute name="/var/su/long_name" value="Uwindstress" />
+    <attribute name="/var/su/units" value="Pa" />
+    <attribute name="/var/su/_FillValue" var="/var/spval" />
+    <attribute name="/var/sv/long_name" value="Vwindstress" />
+    <attribute name="/var/sv/units" value="Pa" />
+    <attribute name="/var/sv/_FillValue" var="/var/spval" />
+    <attribute name="/var/lthf/long_name" value="latent heat flux" />
+    <attribute name="/var/lthf/units" value="W/m^2" />
+    <attribute name="/var/lthf/_FillValue" var="/var/spval" />
+    <attribute name="/var/sshf/long_name" value="sensible heat flux" />
+    <attribute name="/var/sshf/units" value="W/m^2" />
+    <attribute name="/var/sshf/_FillValue" var="/var/spval" />
+    <attribute name="/var/lwv/long_name" value="Longwave" />
+    <attribute name="/var/lwv/units" value="W/m^2" />
+    <attribute name="/var/lwv/_FillValue" var="/var/spval" />
+    <attribute name="/var/swv/long_name" value="Shortwave" />
+    <attribute name="/var/swv/units" value="W/m^2" />
+    <attribute name="/var/swv/_FillValue" var="/var/spval" />
+
+    <global-bounds dimensions="/dimensions/ni_global,/dimensions/nj_global,/dimensions/nk3_global" offsets="/aux/ni_offset,/aux/nj_offset,/aux/nk_offset">
+      <var name="/var/ustar" type="real*4" dimensions="/aux/ni_local,/aux/nj_local,/aux/nk3_local" />
+      <var name="/var/vstar" type="real*4" dimensions="/aux/ni_local,/aux/nj_local,/aux/nk3_local" />
+      <var name="/var/wstar" type="real*4" dimensions="/aux/ni_local,/aux/nj_local,/aux/nk3_local" />
     </global-bounds>
-    <attribute name="long_name" path="/var/ustar" value="eddy induced zonal current" />
-    <attribute name="units" path="/var/ustar" value="m/s" />
-    <attribute name="_FillValue" path="/var/ustar" var="spval" />
-    <attribute name="long_name" path="/var/vstar" value="eddy induced meridional current" />
-    <attribute name="units" path="/var/vstar" value="m/s" />
-    <attribute name="_FillValue" path="/var/vstar" var="spval" />
-    <attribute name="long_name" path="/var/wstar" value="eddy induced vertical current" />
-    <attribute name="units" path="/var/wstar" value="m/s" />
-    <attribute name="_FillValue" path="/var/wstar" var="spval" />
-    <var name="ttdd" path="/var" type="string" />
-    <attribute name="title" path="/var/global" value="test" />
-    <attribute name="history" path="/var/global" var="ttdd" />
-    <attribute name="source" path="/var/global" value="LASG/IAP Climate system Ocean Model" />-->
+
+    <attribute name="/var/ustar/long_name" value="eddy induced zonal current" />
+    <attribute name="/var/ustar/units" value="m/s" />
+    <attribute name="/var/ustar/_FillValue" var="/var/spval" />
+    <attribute name="/var/vstar/long_name" value="eddy induced meridional current" />
+    <attribute name="/var/vstar/units" value="m/s" />
+    <attribute name="/var/vstar/_FillValue" var="/var/spval" />
+    <attribute name="/var/wstar/long_name" value="eddy induced vertical current" />
+    <attribute name="/var/wstar/units" value="m/s" />
+    <attribute name="/var/wstar/_FillValue" var="/var/spval" />
+    <var name="/var/ttdd" type="string" />
+    <attribute name="/var/global/title" value="test" />
+    <attribute name="/var/global/history" var="/var/ttdd" />
+    <attribute name="/var/global/source" value="LASG/IAP Climate system Ocean Model" />-->
   </adios-group>
-  <!--<method group="ssavemon" method="MPI_AMR">
-    num_aggregators=4;num_ost=1
+
+  <method group="ssavemon" method="MPI_AMR">
+    num_aggregators=128;num_ost=1
   </method>
-  <buffer size-MB="200" allocate-time="now" />-->
+
+  <buffer size-MB="150" allocate-time="now" />
 </adios-config>
