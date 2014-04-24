@@ -30,6 +30,7 @@ end subroutine end_adios
 !   only use the basic method
 !   overlapping area between processes is not stored in file
 subroutine inirun_adios_read_noneoverlap
+use adios_read_mod
 #include <def-undef.h>
 use param_mod
 use pconst_mod
@@ -62,31 +63,27 @@ character (len=21) :: fname
 integer   :: gcnt,var_count,attr_count,tmp,adios_err
 integer*8 :: adios_groupsize,adios_totalsize,adios_handle, &
              gh,adios_buf_size,read_bytes,total_bytes
+integer*8 :: selection_2d, selection_3d
 integer*8,dimension(0:2) :: starts_2d, starts_3d, &
                             count_2d, count_3d
+real(r8), dimension(:, :, :), allocatable :: buf_3d
 
     if (mytid==0) then
-       write(6,*) "beginning of inirun_adios_read_noneoverlap !"
+        write(6,*) "beginning of inirun_adios_read_noneoverlap !"
         open (17,file='rpointer.ocn.adios',form='formatted')
         read (17,'(a21)') fname
         close(17)
     endif 
 
     call mpi_bcast(fname,21,mpi_character,0,mpi_comm_ocn,adios_err)
- 
-    total_bytes =0
 
-    call adios_fopen (adios_handle,fname,mpi_comm_self,gcnt,adios_err)
-    if(adios_err .ne. 0) write(6,*) 'proc:',mytid,'error in adios_fopen'
+    call adios_read_open_file(adios_handle, fname, ADIOS_READ_METHOD_BP, mpi_comm_ocn, adios_err)
+    if(adios_err .ne. 0) write(6,*) 'proc:',mytid,'error in adios_read_open_file'
 
-    call adios_gopen (adios_handle, gh,"ssaveins",var_count,attr_count,adios_err)
-    if(adios_err .ne. 0) write(6,*) 'proc:',mytid,'error in adios_gopen'
-
-    call adios_read_var (gh,"/var/number_month",0,1,number_month,read_bytes)
-    month=number_month
-    total_bytes=total_bytes+read_bytes
-    call adios_read_var (gh,"/var/number_day",0,1,number_day,read_bytes )
-    total_bytes=total_bytes+read_bytes
+    call adios_schedule_read(adios_handle, 0_8, '/var/number_month', 0, 1, number_month, adios_err)
+    call adios_schedule_read(adios_handle, 0_8, '/var/number_day', 0, 1, number_day, adios_err)
+    call adios_perform_reads(adios_handle, adios_err)
+    month = number_month
 
     count_2d(0)=imt
     count_2d(1)=jmt
@@ -110,22 +107,31 @@ integer*8,dimension(0:2) :: starts_2d, starts_3d, &
     !write(6,*) 'READ proc:',mytid,'I: ',count_2d(0),starts_2d(0)
     !write(6,*) 'READ proc:',mytid,'J: ',count_2d(1),starts_2d(1)
 
-    call adios_read_var(gh,"/var/h0" ,starts_2d,count_2d, &
-                        h0(1:count_2d(0),1:count_2d(1)),read_bytes)
-    total_bytes=total_bytes+read_bytes
-    call adios_read_var(gh,"/var/u"  ,starts_3d,count_3d, &
-                        u(1:count_3d(0),1:count_3d(1),1:count_3d(2)),read_bytes)
-    total_bytes=total_bytes+read_bytes
-    call adios_read_var(gh,"/var/v"  ,starts_3d,count_3d, &
-                        v(1:count_3d(0),1:count_3d(1),1:count_3d(2)),read_bytes)
-    total_bytes=total_bytes+read_bytes
-    call adios_read_var(gh,"/var/at1",starts_3d,count_3d, &
-                        at(1:count_3d(0),1:count_3d(1),1:count_3d(2),1),read_bytes)
-    total_bytes=total_bytes+read_bytes
-    call adios_read_var(gh,"/var/at2",starts_3d,count_3d, &
-                        at(1:count_3d(0),1:count_3d(1),1:count_3d(2),2),read_bytes)
-    total_bytes=total_bytes+read_bytes
-    !write(6,*) 'proc:',mytid,'read total_bytes is',total_bytes
+    allocate(buf_3d(1:count_3d(0), 1:count_3d(1), 1:count_3d(2)))
+
+    call adios_selection_boundingbox(selection_2d, 2, starts_2d, count_2d)
+    call adios_selection_boundingbox(selection_3d, 3, starts_3d, count_3d)
+
+    call adios_schedule_read(adios_handle, selection_2d, '/var/h0', 0, 1, h0(1:count_2d(0), 1:count_2d(1)), adios_err)
+    call adios_perform_reads(adios_handle, adios_err)
+
+    call adios_schedule_read(adios_handle, selection_3d, '/var/u', 0, 1, buf_3d, adios_err)
+    call adios_perform_reads(adios_handle, adios_err)
+    u(1:count_3d(0), 1:count_3d(1), 1:count_3d(2)) = buf_3d
+
+    call adios_schedule_read(adios_handle, selection_3d, '/var/v', 0, 1, buf_3d, adios_err)
+    call adios_perform_reads(adios_handle, adios_err)
+    v(1:count_3d(0), 1:count_3d(1), 1:count_3d(2)) = buf_3d
+
+    call adios_schedule_read(adios_handle, selection_3d, '/var/at1', 0, 1, buf_3d, adios_err)
+    call adios_perform_reads(adios_handle, adios_err)
+    at(1:count_3d(0), 1:count_3d(1), 1:count_3d(2), 1) = buf_3d
+
+    call adios_schedule_read(adios_handle, selection_3d, '/var/at2', 0, 1, buf_3d, adios_err)
+    call adios_perform_reads(adios_handle, adios_err)
+    at(1:count_3d(0), 1:count_3d(1), 1:count_3d(2), 2) = buf_3d
+
+    deallocate(buf_3d)
 
 #ifdef COUP
      if (nstart==2) then
@@ -149,36 +155,23 @@ integer*8,dimension(0:2) :: starts_2d, starts_3d, &
             end do
             end do
         else
-        call adios_read_var(gh,"/var/t_cpl" ,starts_2d,count_2d, &
-                        t_cpl(1:count_2d(0),1:count_2d(1)),read_bytes)
-          total_bytes=total_bytes+read_bytes
-         call adios_read_var(gh,"/var/s_cpl" ,starts_2d,count_2d, &
-                        s_cpl(1:count_2d(0),1:count_2d(1)),read_bytes)
-          total_bytes=total_bytes+read_bytes
-         call adios_read_var(gh,"/var/u_cpl" ,starts_2d,count_2d, &
-                        u_cpl(1:count_2d(0),1:count_2d(1)),read_bytes)
-          total_bytes=total_bytes+read_bytes
-          call adios_read_var(gh,"/var/v_cpl" ,starts_2d,count_2d, &
-                        v_cpl(1:count_2d(0),1:count_2d(1)),read_bytes)
-          total_bytes=total_bytes+read_bytes
-          call adios_read_var(gh,"/var/dhdx" ,starts_2d,count_2d, &
-                        dhdx(1:count_2d(0),1:count_2d(1)),read_bytes)
-          total_bytes=total_bytes+read_bytes
-          call adios_read_var(gh,"/var/dhdy" ,starts_2d,count_2d, &
-                        dhdy(1:count_2d(0),1:count_2d(1)),read_bytes)
-          total_bytes=total_bytes+read_bytes
-          call adios_read_var(gh,"/var/q" ,starts_2d,count_2d, &
-                        q(1:count_2d(0),1:count_2d(1)),read_bytes)
-          total_bytes=total_bytes+read_bytes
+
+        call adios_schedule_read(adios_handle, selection_2d, '/var/t_cpl', 0, 1, t_cpl(1:count_2d(0), 1:count_2d(1)), adios_err)
+        call adios_schedule_read(adios_handle, selection_2d, '/var/s_cpl', 0, 1, s_cpl(1:count_2d(0), 1:count_2d(1)), adios_err)
+        call adios_schedule_read(adios_handle, selection_2d, '/var/u_cpl', 0, 1, u_cpl(1:count_2d(0), 1:count_2d(1)), adios_err)
+        call adios_schedule_read(adios_handle, selection_2d, '/var/v_cpl', 0, 1, v_cpl(1:count_2d(0), 1:count_2d(1)), adios_err)
+        call adios_schedule_read(adios_handle, selection_2d, '/var/dhdx', 0, 1, dhdx(1:count_2d(0), 1:count_2d(1)), adios_err)
+        call adios_schedule_read(adios_handle, selection_2d, '/var/dhdy', 0, 1, dhdy(1:count_2d(0), 1:count_2d(1)), adios_err)
+        call adios_schedule_read(adios_handle, selection_2d, '/var/q', 0, 1, q(1:count_2d(0), 1:count_2d(1)), adios_err)
+        call adios_perform_reads(adios_handle, adios_err)
+
         endif
 #endif
    write(*,*) 'number_month =',number_month,'mon0=',mon0,&
                        'number_day=',number_day,'iday=',iday
-    
-    call adios_gclose(gh, adios_err)
-    if(adios_err .ne. 0) write(6,*) 'proc:',mytid,'error in adios_gclose'
-    call adios_fclose(adios_handle, adios_err)
-    if(adios_err .ne. 0) write(6,*) 'proc:',mytid,'error in adios_fclose'
+
+    call adios_read_close(adios_handle, adios_err)
+    if(adios_err .ne. 0) write(6,*) 'proc:',mytid,'error in adios_read_close'
 
     if((iy==ny_proc-1).and.((j_start(mytid+1)+jmt-1)>jmt_global)) then
         tmp=jmt_global-j_start(mytid+1)+1+1
@@ -338,30 +331,30 @@ real(r8),dimension(imt,jmt,km) :: buffer_3d
         if(adios_err .ne. 0) write(6,*) 'proc:',mytid,'error in adios_group_size'
 
         error_sum=0
-        call adios_write(adios_handle,"ni_global",ni_global,adios_err)
+        call adios_write(adios_handle,"/dimensions/ni_global",ni_global,adios_err)
         error_sum = error_sum+adios_err
-        call adios_write(adios_handle,"nj_global",nj_global,adios_err)
+        call adios_write(adios_handle,"/dimensions/nj_global",nj_global,adios_err)
         error_sum = error_sum+adios_err
-        call adios_write(adios_handle,"nk_global",nk_global,adios_err)
+        call adios_write(adios_handle,"/dimensions/nk_global",nk_global,adios_err)
         error_sum = error_sum+adios_err
-        call adios_write(adios_handle,"ni_offset",ni_offset,adios_err)
+        call adios_write(adios_handle,"/aux/ni_offset",ni_offset,adios_err)
         error_sum = error_sum+adios_err
-        call adios_write(adios_handle,"nj_offset",nj_offset,adios_err)
+        call adios_write(adios_handle,"/aux/nj_offset",nj_offset,adios_err)
         error_sum = error_sum+adios_err
-        call adios_write(adios_handle,"nk_offset",nk_offset,adios_err)
+        call adios_write(adios_handle,"/aux/nk_offset",nk_offset,adios_err)
         error_sum = error_sum+adios_err
-        call adios_write(adios_handle,"ni_local",ni_local,adios_err)
+        call adios_write(adios_handle,"/aux/ni_local",ni_local,adios_err)
         error_sum = error_sum+adios_err
-        call adios_write(adios_handle,"nj_local",nj_local,adios_err)
+        call adios_write(adios_handle,"/aux/nj_local",nj_local,adios_err)
         error_sum = error_sum+adios_err
-        call adios_write(adios_handle,"nk_local",nk_local,adios_err)
+        call adios_write(adios_handle,"/aux/nk_local",nk_local,adios_err)
         error_sum = error_sum+adios_err
         if(error_sum .ne. 0) write(6,*) 'proc:',mytid,'error in writing dimensions'
 
         error_sum=0
-        call adios_write (adios_handle,"number_month",number_month,adios_err)
+        call adios_write (adios_handle,"/var/number_month",number_month,adios_err)
         error_sum = error_sum+adios_err
-        call adios_write (adios_handle,"number_day",number_day,adios_err)
+        call adios_write (adios_handle,"/var/number_day",number_day,adios_err)
         error_sum = error_sum+adios_err
 
         buffer_2d(:,:)=h0(:,:)
@@ -374,7 +367,7 @@ real(r8),dimension(imt,jmt,km) :: buffer_3d
         if(ix== (nx_proc-1)) then
         buffer_2d(imt,:)=spval
         endif
-        call adios_write (adios_handle,"h0",buffer_2d(ni_start:ni_end, &
+        call adios_write (adios_handle,"/var/h0",buffer_2d(ni_start:ni_end, &
                                                nj_start:nj_end),&
                                                adios_err)
         error_sum = error_sum+adios_err
@@ -389,7 +382,7 @@ real(r8),dimension(imt,jmt,km) :: buffer_3d
         if(ix== (nx_proc-1)) then
         buffer_3d(imt,:,:)=spval
         endif
-        call adios_write (adios_handle,"u",buffer_3d(ni_start:ni_end, &
+        call adios_write (adios_handle,"/var/u",buffer_3d(ni_start:ni_end, &
                                              nj_start:nj_end, &
                                              nk_start:nk_end),&
                                              adios_err)
@@ -405,7 +398,7 @@ real(r8),dimension(imt,jmt,km) :: buffer_3d
         if(ix== (nx_proc-1)) then
         buffer_3d(imt,:,:)=spval
         endif
-        call adios_write (adios_handle,"v",buffer_3d(ni_start:ni_end, &
+        call adios_write (adios_handle,"/var/v",buffer_3d(ni_start:ni_end, &
                                              nj_start:nj_end, &
                                              nk_start:nk_end),&
                                              adios_err)
@@ -421,7 +414,7 @@ real(r8),dimension(imt,jmt,km) :: buffer_3d
         if(ix== (nx_proc-1)) then
         buffer_3d(imt,:,:)=spval
         endif
-        call adios_write (adios_handle,"at1",buffer_3d (ni_start:ni_end,&
+        call adios_write (adios_handle,"/var/at1",buffer_3d (ni_start:ni_end,&
                                                 nj_start:nj_end, &
                                                 nk_start:nk_end), &
                                                 adios_err)
@@ -437,7 +430,7 @@ real(r8),dimension(imt,jmt,km) :: buffer_3d
         if(ix== (nx_proc-1)) then
         buffer_3d(imt,:,:)=spval
         endif
-        call adios_write (adios_handle,"at2",buffer_3d(ni_start:ni_end, &
+        call adios_write (adios_handle,"/var/at2",buffer_3d(ni_start:ni_end, &
                                                 nj_start:nj_end, &
                                                 nk_start:nk_end), &
                                                 adios_err)
@@ -453,7 +446,7 @@ real(r8),dimension(imt,jmt,km) :: buffer_3d
         if(ix== (nx_proc-1)) then
         buffer_3d(imt,:,:)=spval
         endif
-        call adios_write (adios_handle,"ws",buffer_3d(ni_start:ni_end, &
+        call adios_write (adios_handle,"/var/ws",buffer_3d(ni_start:ni_end, &
                                                nj_start:nj_end, &
                                                nk_start:nk_end),&
                                                adios_err)
@@ -469,7 +462,7 @@ real(r8),dimension(imt,jmt,km) :: buffer_3d
         if(ix== (nx_proc-1)) then
         buffer_2d(imt,:)=spval
         endif        
-        call adios_write (adios_handle,"su",buffer_2d(ni_start:ni_end, &
+        call adios_write (adios_handle,"/var/su",buffer_2d(ni_start:ni_end, &
                                                nj_start:nj_end),&
                                                adios_err)
         error_sum = error_sum+adios_err
@@ -484,7 +477,7 @@ real(r8),dimension(imt,jmt,km) :: buffer_3d
         if(ix== (nx_proc-1)) then
         buffer_2d(imt,:)=spval
         endif
-        call adios_write (adios_handle,"sv",buffer_2d(ni_start:ni_end, &
+        call adios_write (adios_handle,"/var/sv",buffer_2d(ni_start:ni_end, &
                                                nj_start:nj_end),&
                                                adios_err)
         error_sum = error_sum+adios_err
@@ -499,7 +492,7 @@ real(r8),dimension(imt,jmt,km) :: buffer_3d
         if(ix== (nx_proc-1)) then
         buffer_2d(imt,:)=spval
         endif
-        call adios_write (adios_handle,"swv",buffer_2d(ni_start:ni_end, &
+        call adios_write (adios_handle,"/var/swv",buffer_2d(ni_start:ni_end, &
                                                  nj_start:nj_end),&
                                                  adios_err)
         error_sum = error_sum+adios_err
@@ -514,7 +507,7 @@ real(r8),dimension(imt,jmt,km) :: buffer_3d
         if(ix== (nx_proc-1)) then
         buffer_2d(imt,:)=spval
         endif
-        call adios_write (adios_handle,"lwv",buffer_2d(ni_start:ni_end, &
+        call adios_write (adios_handle,"/var/lwv",buffer_2d(ni_start:ni_end, &
                                                  nj_start:nj_end),&
                                                  adios_err)
         error_sum = error_sum+adios_err
@@ -529,7 +522,7 @@ real(r8),dimension(imt,jmt,km) :: buffer_3d
         if(ix== (nx_proc-1)) then
         buffer_2d(imt,:)=spval
         endif
-        call adios_write (adios_handle,"sshf",buffer_2d(ni_start:ni_end, &
+        call adios_write (adios_handle,"/var/sshf",buffer_2d(ni_start:ni_end, &
                                                    nj_start:nj_end),&
                                                    adios_err)
         error_sum = error_sum+adios_err
@@ -544,7 +537,7 @@ real(r8),dimension(imt,jmt,km) :: buffer_3d
         if(ix== (nx_proc-1)) then
         buffer_2d(imt,:)=spval
         endif
-        call adios_write (adios_handle,"lthf",buffer_2d(ni_start:ni_end, &
+        call adios_write (adios_handle,"/var/lthf",buffer_2d(ni_start:ni_end, &
                                                    nj_start:nj_end),&
                                                    adios_err)
         error_sum = error_sum+adios_err
@@ -559,7 +552,7 @@ real(r8),dimension(imt,jmt,km) :: buffer_3d
         if(ix== (nx_proc-1)) then
         buffer_2d(imt,:)=spval
         endif
-        call adios_write (adios_handle,"fresh",buffer_2d(ni_start:ni_end, &
+        call adios_write (adios_handle,"/var/fresh",buffer_2d(ni_start:ni_end, &
                                                      nj_start:nj_end),&
                                                      adios_err)
         error_sum = error_sum+adios_err
@@ -585,7 +578,7 @@ real(r8),dimension(imt,jmt,km) :: buffer_3d
         if(ix== (nx_proc-1)) then
         buffer_2d(imt,:)=spval
         endif
-        call adios_write (adios_handle,"t_cpl",buffer_2d(ni_start:ni_end, &
+        call adios_write (adios_handle,"/var/t_cpl",buffer_2d(ni_start:ni_end, &
                                                      nj_start:nj_end),&
                                                      adios_err)
         error_sum = error_sum+adios_err
@@ -600,7 +593,7 @@ real(r8),dimension(imt,jmt,km) :: buffer_3d
         if(ix== (nx_proc-1)) then
         buffer_2d(imt,:)=spval
         endif
-        call adios_write (adios_handle,"s_cpl",buffer_2d(ni_start:ni_end, &
+        call adios_write (adios_handle,"/var/s_cpl",buffer_2d(ni_start:ni_end, &
                                                      nj_start:nj_end),&
                                                      adios_err)
         error_sum = error_sum+adios_err
@@ -615,7 +608,7 @@ real(r8),dimension(imt,jmt,km) :: buffer_3d
         if(ix== (nx_proc-1)) then
         buffer_2d(imt,:)=spval
         endif
-        call adios_write (adios_handle,"u_cpl",buffer_2d(ni_start:ni_end, &
+        call adios_write (adios_handle,"/var/u_cpl",buffer_2d(ni_start:ni_end, &
                                                      nj_start:nj_end),&
                                                      adios_err)
         error_sum = error_sum+adios_err
@@ -630,7 +623,7 @@ real(r8),dimension(imt,jmt,km) :: buffer_3d
         if(ix== (nx_proc-1)) then
         buffer_2d(imt,:)=spval
         endif
-        call adios_write (adios_handle,"v_cpl",buffer_2d(ni_start:ni_end, &
+        call adios_write (adios_handle,"/var/v_cpl",buffer_2d(ni_start:ni_end, &
                                                      nj_start:nj_end),&
                                                      adios_err)
         error_sum = error_sum+adios_err
@@ -645,7 +638,7 @@ real(r8),dimension(imt,jmt,km) :: buffer_3d
         if(ix== (nx_proc-1)) then
         buffer_2d(imt,:)=spval
         endif
-        call adios_write (adios_handle,"dhdx",buffer_2d(ni_start:ni_end, &
+        call adios_write (adios_handle,"/var/dhdx",buffer_2d(ni_start:ni_end, &
                                                      nj_start:nj_end),&
                                                      adios_err)
         error_sum = error_sum+adios_err
@@ -660,7 +653,7 @@ real(r8),dimension(imt,jmt,km) :: buffer_3d
         if(ix== (nx_proc-1)) then
         buffer_2d(imt,:)=spval
         endif
-        call adios_write (adios_handle,"dhdy",buffer_2d(ni_start:ni_end, &
+        call adios_write (adios_handle,"/var/dhdy",buffer_2d(ni_start:ni_end, &
                                                      nj_start:nj_end),&
                                                      adios_err)
         error_sum = error_sum+adios_err
@@ -675,7 +668,7 @@ real(r8),dimension(imt,jmt,km) :: buffer_3d
         if(ix== (nx_proc-1)) then
         buffer_2d(imt,:)=spval
         endif
-        call adios_write (adios_handle,"q",buffer_2d(ni_start:ni_end, &
+        call adios_write (adios_handle,"/var/q",buffer_2d(ni_start:ni_end, &
                                                      nj_start:nj_end),&
                                                      adios_err)
         error_sum = error_sum+adios_err
@@ -907,69 +900,69 @@ real*4 :: buffer_tmp(imt,jmt,klv)
         if(adios_err .ne. 0) write(6,*) 'proc:',mytid,'error in adios_group_size'
 
         error_sum=0
-        call adios_write(adios_handle,"ni_global",ni_global,adios_err)
+        call adios_write(adios_handle,"/dimensions/ni_global",ni_global,adios_err)
         error_sum = error_sum+adios_err
-        call adios_write(adios_handle,"nj_global",nj_global,adios_err)
+        call adios_write(adios_handle,"/dimensions/nj_global",nj_global,adios_err)
         error_sum = error_sum+adios_err
-        call adios_write(adios_handle,"nk1_global",nk1_global,adios_err)
+        call adios_write(adios_handle,"/dimensions/nk1_global",nk1_global,adios_err)
         error_sum = error_sum+adios_err
-        call adios_write(adios_handle,"nk2_global",nk2_global,adios_err)
+        call adios_write(adios_handle,"/dimensions/nk2_global",nk2_global,adios_err)
         error_sum = error_sum+adios_err
-        call adios_write(adios_handle,"nk3_global",nk3_global,adios_err)
+        call adios_write(adios_handle,"/dimensions/nk3_global",nk3_global,adios_err)
         error_sum = error_sum+adios_err
-        call adios_write(adios_handle,"ni_offset",ni_offset,adios_err)
+        call adios_write(adios_handle,"/aux/ni_offset",ni_offset,adios_err)
         error_sum = error_sum+adios_err
-        call adios_write(adios_handle,"nj_offset",nj_offset,adios_err)
+        call adios_write(adios_handle,"/aux/nj_offset",nj_offset,adios_err)
         error_sum = error_sum+adios_err
-        call adios_write(adios_handle,"nk_offset",nk_offset,adios_err)
+        call adios_write(adios_handle,"/aux/nk_offset",nk_offset,adios_err)
         error_sum = error_sum+adios_err
-        call adios_write(adios_handle,"ni_local",ni_local,adios_err)
+        call adios_write(adios_handle,"/aux/ni_local",ni_local,adios_err)
         error_sum = error_sum+adios_err
-        call adios_write(adios_handle,"nj_local",nj_local,adios_err)
+        call adios_write(adios_handle,"/aux/nj_local",nj_local,adios_err)
         error_sum = error_sum+adios_err
-        call adios_write(adios_handle,"nk1_local",nk1_local,adios_err)
+        call adios_write(adios_handle,"/aux/nk1_local",nk1_local,adios_err)
         error_sum = error_sum+adios_err
-        call adios_write(adios_handle,"nk2_local",nk2_local,adios_err)
+        call adios_write(adios_handle,"/aux/nk2_local",nk2_local,adios_err)
         error_sum = error_sum+adios_err
-        call adios_write(adios_handle,"nk3_local",nk3_local,adios_err)
+        call adios_write(adios_handle,"/aux/nk3_local",nk3_local,adios_err)
         error_sum = error_sum+adios_err
 
         if(error_sum .ne. 0) write(6,*) 'proc:',mytid,'error in writing dimensions'
 
         error_sum=0
         t0_cdf=month-1
-        call adios_write (adios_handle,"lon",lon((ni_offset+1):(ni_offset+ni_local)),adios_err)
+        call adios_write (adios_handle,"/var/lon",lon((ni_offset+1):(ni_offset+ni_local)),adios_err)
         error_sum = error_sum+adios_err
-        call adios_write (adios_handle,"lat",lat((nj_offset+3):(nj_offset+3+nj_local)),adios_err)
+        call adios_write (adios_handle,"/var/lat",lat((nj_offset+3):(nj_offset+3+nj_local)),adios_err)
         error_sum = error_sum+adios_err
-        call adios_write (adios_handle,"lev",lev(nk_start:nk1_end),adios_err)
+        call adios_write (adios_handle,"/var/lev",lev(nk_start:nk1_end),adios_err)
         error_sum = error_sum+adios_err
-        call adios_write (adios_handle,"lev1",lev1(nk_start:nk2_end),adios_err)
+        call adios_write (adios_handle,"/var/lev1",lev1(nk_start:nk2_end),adios_err)
          error_sum = error_sum+adios_err 
-        call adios_write (adios_handle,"time",t0_cdf,adios_err)
+        call adios_write (adios_handle,"/var/time",t0_cdf,adios_err)
          error_sum = error_sum+adios_err
 
-         call adios_write (adios_handle,"spval",spval,adios_err)
+         call adios_write (adios_handle,"/var/spval",spval,adios_err)
          error_sum = error_sum+adios_err
 
         call date_and_time (dd,tt,zz,vv)
         ttdd=tt//'  '//dd
-         call adios_write (adios_handle,"ttdd",ttdd,adios_err)
+         call adios_write (adios_handle,"/var/ttdd",ttdd,adios_err)
 
  
         call datachange(z0mon,1,1,1)
-        call adios_write (adios_handle,"z0",z0mon(ni_start:ni_end, &
+        call adios_write (adios_handle,"/var/z0",z0mon(ni_start:ni_end, &
                                                nj_start:nj_end),&
                                                adios_err)
         error_sum = error_sum+adios_err
          call datachange(himon,1,1,1)
-        call adios_write (adios_handle,"hi",himon(ni_start:ni_end, &
+        call adios_write (adios_handle,"/var/hi",himon(ni_start:ni_end, &
                                              nj_start:nj_end), &
                                              adios_err)
          error_sum = error_sum+adios_err
       
         call datachange(hdmon,1,1,1)
-        call adios_write (adios_handle,"hd",hdmon(ni_start:ni_end, &
+        call adios_write (adios_handle,"/var/hd",hdmon(ni_start:ni_end, &
                                              nj_start:nj_end), &
                                              adios_err)
          error_sum = error_sum+adios_err
@@ -985,7 +978,7 @@ real*4 :: buffer_tmp(imt,jmt,klv)
             END DO
          END DO
         call datachange(buffer_2d_tmp,1,1,1) 
-        call adios_write (adios_handle,"ic1",buffer_2d_tmp(ni_start:ni_end, &
+        call adios_write (adios_handle,"/var/ic1",buffer_2d_tmp(ni_start:ni_end, &
                                              nj_start:nj_end), &
                                              adios_err)
          error_sum = error_sum+adios_err
@@ -1002,27 +995,27 @@ real*4 :: buffer_tmp(imt,jmt,klv)
             END DO
          END DO
          call datachange(buffer_2d_tmp,1,1,1)
-         call adios_write (adios_handle,"ic2",buffer_2d_tmp(ni_start:ni_end, &
+         call adios_write (adios_handle,"/var/ic2",buffer_2d_tmp(ni_start:ni_end, &
                                              nj_start:nj_end), &
                                              adios_err)
          error_sum = error_sum+adios_err
         
          buffer_2d_tmp(:,:)=netmon(:,:,1)/ODZP(1)/OD0CP !W/m2
          call datachange(buffer_2d_tmp,1,1,1)
-         call adios_write (adios_handle,"net1",buffer_2d_tmp(ni_start:ni_end, &
+         call adios_write (adios_handle,"/var/net1",buffer_2d_tmp(ni_start:ni_end, &
                                              nj_start:nj_end), &
                                              adios_err)
          error_sum = error_sum+adios_err 
        
          buffer_2d_tmp(:,:)=netmon(:,:,2)*DZP(1)*1000./37.4*D0 !kg/m^2/s
          call datachange(buffer_2d_tmp,1,1,1)
-         call adios_write (adios_handle,"net2",buffer_2d_tmp(ni_start:ni_end, &
+         call adios_write (adios_handle,"/var/net2",buffer_2d_tmp(ni_start:ni_end, &
                                              nj_start:nj_end), &
                                              adios_err)
          error_sum = error_sum+adios_err
 
          call datachange(mldmon,1,1,1)
-         call adios_write (adios_handle,"mld",mldmon(ni_start:ni_end, &
+         call adios_write (adios_handle,"/var/mld",mldmon(ni_start:ni_end, &
                                              nj_start:nj_end), &
                                              adios_err)
          error_sum = error_sum+adios_err
@@ -1048,42 +1041,42 @@ real*4 :: buffer_tmp(imt,jmt,klv)
 !       call local_to_global_4d(vsmon,vel_tmp,km,1,0)
 
          call datachange(akmmon,klv,1,0)
-         call adios_write (adios_handle,"akm",akmmon(ni_start:ni_end, &
+         call adios_write (adios_handle,"/var/akm",akmmon(ni_start:ni_end, &
                                              nj_start:nj_end, &
                                              nk_start:nk2_end),&
                                              adios_err)
          error_sum = error_sum+adios_err
 
          call datachange(aktmon,klv,1,1)
-         call adios_write (adios_handle,"akt",aktmon(ni_start:ni_end, &
+         call adios_write (adios_handle,"/var/akt",aktmon(ni_start:ni_end, &
                                              nj_start:nj_end, &
                                              nk_start:nk3_end),&
                                              adios_err)
          error_sum = error_sum+adios_err
 
          call datachange(aksmon,klv,1,1)
-         call adios_write (adios_handle,"aks",aksmon(ni_start:ni_end, &
+         call adios_write (adios_handle,"/var/aks",aksmon(ni_start:ni_end, &
                                              nj_start:nj_end, &
                                              nk_start:nk3_end),&
                                              adios_err)
          error_sum = error_sum+adios_err
 
           call datachange(akmbmon,klv,1,1)
-         call adios_write (adios_handle,"akmb",akmbmon(ni_start:ni_end, &
+         call adios_write (adios_handle,"/var/akmb",akmbmon(ni_start:ni_end, &
                                              nj_start:nj_end, &
                                              nk_start:nk3_end),&
                                              adios_err)
          error_sum = error_sum+adios_err
 
          call datachange(aktbmon,klv,1,1)
-         call adios_write (adios_handle,"aktb",aktbmon(ni_start:ni_end, &
+         call adios_write (adios_handle,"/var/aktb",aktbmon(ni_start:ni_end, &
                                              nj_start:nj_end, &
                                              nk_start:nk3_end),&
                                              adios_err)
          error_sum = error_sum+adios_err
 
          call datachange(aksbmon,klv,1,1)
-         call adios_write (adios_handle,"aksb",aksbmon(ni_start:ni_end, &
+         call adios_write (adios_handle,"/var/aksb",aksbmon(ni_start:ni_end, &
                                              nj_start:nj_end, &
                                              nk_start:nk3_end),&
                                              adios_err)
@@ -1091,7 +1084,7 @@ real*4 :: buffer_tmp(imt,jmt,klv)
 
 #if ( defined TIDEMIX )
         call datachange(aktidebmon,klv,1,1)
-         call adios_write (adios_handle,"aktide",aktidemon(ni_start:ni_end, &
+         call adios_write (adios_handle,"/var/aktide",aktidemon(ni_start:ni_end, &
                                              nj_start:nj_end, &
                                              nk_start:nk3_end),&
                                              adios_err)
@@ -1099,35 +1092,35 @@ real*4 :: buffer_tmp(imt,jmt,klv)
 #endif
 
         call datachange(tsmon,klv,1,1)
-         call adios_write (adios_handle,"ts",tsmon(ni_start:ni_end, &
+         call adios_write (adios_handle,"/var/ts",tsmon(ni_start:ni_end, &
                                              nj_start:nj_end, &
                                              nk_start:nk3_end),&
                                              adios_err)
          error_sum = error_sum+adios_err
 
         call datachange(ssmon,klv,1,1)
-         call adios_write (adios_handle,"ss",ssmon(ni_start:ni_end, &
+         call adios_write (adios_handle,"/var/ss",ssmon(ni_start:ni_end, &
                                              nj_start:nj_end, &
                                              nk_start:nk3_end),&
                                              adios_err)
          error_sum = error_sum+adios_err
 
         call datachange(wsmon,klv,1,1)
-         call adios_write (adios_handle,"ws",wsmon(ni_start:ni_end, &
+         call adios_write (adios_handle,"/var/ws",wsmon(ni_start:ni_end, &
                                              nj_start:nj_end, &
                                              nk_start:nk3_end),&
                                              adios_err)
          error_sum = error_sum+adios_err
 
          call datachange(usmon,klv,1,0)
-         call adios_write (adios_handle,"us",usmon(ni_start:ni_end, &
+         call adios_write (adios_handle,"/var/us",usmon(ni_start:ni_end, &
                                              nj_start:nj_end, &
                                              nk_start:nk3_end),&
                                              adios_err)
          error_sum = error_sum+adios_err
 
           call datachange(vsmon,klv,1,0)
-         call adios_write (adios_handle,"vs",vsmon(ni_start:ni_end, &
+         call adios_write (adios_handle,"/var/vs",vsmon(ni_start:ni_end, &
                                              nj_start:nj_end, &
                                              nk_start:nk3_end),&
                                              adios_err)
@@ -1139,44 +1132,44 @@ real*4 :: buffer_tmp(imt,jmt,klv)
  !         endif
 
          call datachange(sumon,1,1,0)
-         call adios_write (adios_handle,"su",sumon(ni_start:ni_end, &
+         call adios_write (adios_handle,"/var/su",sumon(ni_start:ni_end, &
                                              nj_start:nj_end), &
                                              adios_err)
          error_sum = error_sum+adios_err
 
          call datachange(svmon,1,1,0)
-         call adios_write (adios_handle,"sv",svmon(ni_start:ni_end, &
+         call adios_write (adios_handle,"/var/sv",svmon(ni_start:ni_end, &
                                              nj_start:nj_end), &
                                              adios_err)
          error_sum = error_sum+adios_err
 
           call datachange(lthfmon,1,1,1)
-         call adios_write (adios_handle,"lthf",lthfmon(ni_start:ni_end, &
+         call adios_write (adios_handle,"/var/lthf",lthfmon(ni_start:ni_end, &
                                              nj_start:nj_end), &
                                              adios_err)
          error_sum = error_sum+adios_err
 
          call datachange(sshfmon,1,1,1)
-         call adios_write (adios_handle,"sshf",sshfmon(ni_start:ni_end, &
+         call adios_write (adios_handle,"/var/sshf",sshfmon(ni_start:ni_end, &
                                              nj_start:nj_end), &
                                              adios_err)
          error_sum = error_sum+adios_err
 
           call datachange(lwvmon,1,1,1)
-         call adios_write (adios_handle,"lwv",lwvmon(ni_start:ni_end, &
+         call adios_write (adios_handle,"/var/lwv",lwvmon(ni_start:ni_end, &
                                              nj_start:nj_end), &
                                              adios_err)
          error_sum = error_sum+adios_err
 
           call datachange(swvmon,1,1,1)
-         call adios_write (adios_handle,"swv",swvmon(ni_start:ni_end, &
+         call adios_write (adios_handle,"/var/swv",swvmon(ni_start:ni_end, &
                                              nj_start:nj_end), &
                                              adios_err)
          error_sum = error_sum+adios_err
 
 #ifdef ISOOUT
           call datachange(vetisomon,klv,1,1)
-         call adios_write (adios_handle,"ustar",vetisomon(ni_start:ni_end, &
+         call adios_write (adios_handle,"/var/ustar",vetisomon(ni_start:ni_end, &
                                              nj_start:nj_end, &
                                              nk_start:nk3_end),&
                                              adios_err)
@@ -1190,14 +1183,14 @@ real*4 :: buffer_tmp(imt,jmt,klv)
            enddo
          enddo
          call datachange(buffer_tmp,klv,1,1)
-         call adios_write (adios_handle,"vstar",buffer_tmp(ni_start:ni_end, &
+         call adios_write (adios_handle,"/var/vstar",buffer_tmp(ni_start:ni_end, &
                                              nj_start:nj_end, &
                                              nk_start:nk3_end),&
                                              adios_err)
          error_sum = error_sum+adios_err
  
           call datachange(vbtisomon,klv,1,1)
-         call adios_write (adios_handle,"wstar",vbtisomon(ni_start:ni_end, &
+         call adios_write (adios_handle,"/var/wstar",vbtisomon(ni_start:ni_end, &
                                              nj_start:nj_end, &
                                              nk_start:nk3_end),&
                                              adios_err)
@@ -1403,3 +1396,4 @@ real*4 :: buffer_tmp(imt,jmt,klv)
         RETURN
 end subroutine ssavemon_adios_noneoverlap
 
+  
