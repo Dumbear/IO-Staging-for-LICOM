@@ -140,9 +140,6 @@ void process_step() {
     all_output("Write file opened.");
     all_output("There are", fp_in->nvars, "variables to write.");
 
-    ni_global = 362;
-    nj_global = 194;
-    nk_global = 30;
     decompose();
     uint64_t group_size = 4 + 4 + 4 * 9, total_size;
     group_size += 8 * 5 * dim_count[3][0] * dim_count[3][1] * dim_count[3][2];
@@ -249,7 +246,7 @@ void process() {
 }
 
 bool parse_arguments(int argc, char **argv) {
-    if (argc != 6) {
+    if (argc != 9) {
         return false;
     }
 
@@ -265,19 +262,33 @@ bool parse_arguments(int argc, char **argv) {
     }
     single_output("<timeout_sec> =", timeout_sec);
 
-    if (sscanf(argv[3], "%d", &proc_x) != 1) {
+    if (sscanf(argv[3], "%d", &ni_global) != 1) {
+        return false;
+    }
+    if (sscanf(argv[4], "%d", &nj_global) != 1) {
+        return false;
+    }
+    if (sscanf(argv[5], "%d", &nk_global) != 1) {
+        return false;
+    }
+    if (ni_global <= 0 || nj_global <= 0 || nk_global <= 0) {
+        single_output("[ERROR] <ni_global> | <nj_global> | <nk_global> is not valid!");
+        return false;
+    }
+
+    if (sscanf(argv[6], "%d", &proc_x) != 1) {
         single_output("[ERROR] <proc_x> is not valid!");
         return false;
     }
     single_output("<proc_x> =", proc_x);
 
-    if (sscanf(argv[4], "%d", &proc_y) != 1) {
+    if (sscanf(argv[7], "%d", &proc_y) != 1) {
         single_output("[ERROR] <proc_y> is not valid!");
         return false;
     }
     single_output("<proc_y> =", proc_y);
 
-    if (sscanf(argv[5], "%d", &proc_z) != 1) {
+    if (sscanf(argv[8], "%d", &proc_z) != 1) {
         single_output("[ERROR] <proc_z> is not valid!");
         return false;
     }

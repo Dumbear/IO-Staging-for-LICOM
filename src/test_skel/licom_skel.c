@@ -43,21 +43,35 @@ void decompose() {
 }
 
 int parse_arguments(int argc, char **argv) {
-    if (argc != 4) {
+    if (argc != 7) {
         return 0;
     }
 
-    if (sscanf(argv[1], "%d", &proc_x) != 1) {
+    if (sscanf(argv[1], "%d", &ni_global) != 1) {
         return 0;
     }
-    if (sscanf(argv[2], "%d", &proc_y) != 1) {
+    if (sscanf(argv[2], "%d", &nj_global) != 1) {
         return 0;
     }
-    if (sscanf(argv[3], "%d", &proc_z) != 1) {
+    if (sscanf(argv[3], "%d", &nk_global) != 1) {
         return 0;
     }
 
-    if (proc_x * proc_y * proc_z != skel_mpi_size) {
+    if (ni_global <= 0 || nj_global <= 0 || nk_global <= 0) {
+        return 0;
+    }
+
+    if (sscanf(argv[4], "%d", &proc_x) != 1) {
+        return 0;
+    }
+    if (sscanf(argv[5], "%d", &proc_y) != 1) {
+        return 0;
+    }
+    if (sscanf(argv[6], "%d", &proc_z) != 1) {
+        return 0;
+    }
+
+    if (proc_x * proc_y * proc_z != skel_mpi_size || proc_z != 1) {
         return 0;
     }
 
@@ -89,7 +103,7 @@ int main(int argc, char **argv) {
     MPI_Comm_size(MPI_COMM_WORLD, &skel_mpi_size);
 
     if (!parse_arguments(argc, argv)) {
-        adios_finalize(0);
+        adios_finalize(skel_mpi_rank);
         MPI_Finalize();
         return 0;
     }
@@ -100,12 +114,9 @@ int main(int argc, char **argv) {
     // Scalar declarations
     int number_month;
     int number_day;
-    ni_global = 362;
-    nj_global = 194;
-    nk_global = 30;
     decompose();
-    number_month = 128;
-    number_day = 128;
+    number_month = 1;
+    number_day = 1;
 
     // Array declarations
 
@@ -207,7 +218,7 @@ int main(int argc, char **argv) {
         skel_access_timer -= MPI_Wtime();
 
         // Set the adios group size
-    adios_groupsize =
+        adios_groupsize =
                          4 +
                          4 +
                          4 +
@@ -328,7 +339,7 @@ int main(int argc, char **argv) {
     free(q);
 
     // Clean up
-    adios_finalize(0);
+    adios_finalize(skel_mpi_rank);
     MPI_Finalize();
     return 0;
 }
