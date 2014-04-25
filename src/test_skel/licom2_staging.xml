@@ -49,11 +49,9 @@
     </global-bounds>
   </adios-group>
 
-  <method group="ssaveins" method="DATASPACES">
+  <method group="ssaveins" method="MPI">
     <!--num_aggregators=128;num_ost=1-->
   </method>
-
-  <buffer size-MB="100" allocate-time="now" />
 
   <adios-group name="ssavemon" coordination-communicator="group_comm">
     <var name="/dimensions/ni_global"  type="integer" />
@@ -238,7 +236,7 @@
     <attribute name="/var/global/source" value="LASG/IAP Climate system Ocean Model" />-->
   </adios-group>
 
-  <method group="ssavemon" method="DATASPACES">
+  <method group="ssavemon" method="MPI">
     <!--num_aggregators=128;num_ost=1-->
   </method>
 
