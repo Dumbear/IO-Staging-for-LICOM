@@ -3,12 +3,12 @@
 proc_all=$1; shift
 proc_use=$1; shift
 ptile=$1; shift
-res_file=$1; shift
 cmd=$@
 
 cat <<HERE
 #!/bin/bash
 
+# BSUB -I
 # BSUB -q hpc_linux
 # BSUB -n ${proc_all}
 # BSUB -R "span[ptile=12]"
@@ -36,7 +36,7 @@ else
 fi
 
 echo \${run_cmd}
-\${run_cmd} &> \${res_file}
+\${run_cmd}
 
 mpdcleanup -f mpd.hosts -r ssh -u xuewei
 rm -f mpd.hosts
