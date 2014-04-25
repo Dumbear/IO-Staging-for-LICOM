@@ -207,6 +207,7 @@ bool process_single() {
         process_step();
     }
     adios_read_close(fp_in);
+    return true;
 }
 
 void advance_day(int &year, int &month, int &day) {
