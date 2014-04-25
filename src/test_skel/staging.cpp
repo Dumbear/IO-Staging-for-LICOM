@@ -47,7 +47,7 @@ string filename_in, filename_out;
 float timeout_sec;
 ADIOS_FILE *fp_in;
 int64_t fp_out;
-double buf[32 * 1024 * 1024];
+char *buf;
 
 int ni_global, nj_global, nk_global, ni_offset, nj_offset, nk_offset, ni_local, nj_local, nk_local;
 uint64_t dim_start[4][8], dim_count[4][8];
@@ -146,6 +146,7 @@ void process_step() {
     group_size += 8 * 15 * dim_count[2][0] * dim_count[2][1];
     adios_group_size(fp_out, group_size, &total_size);
 
+    buf = new char[8 * dim_count[3][0] * dim_count[3][1] * dim_count[3][2] + 1024];
     for (int i = 0; i < fp_in->nvars; ++i) {
         string name(fp_in->var_namelist[i]);
         ADIOS_VARINFO *v = adios_inq_var_byid(fp_in, i);
@@ -179,6 +180,7 @@ void process_step() {
             write_single(i, buf);
         }
     }
+    delete[] buf;
 
     adios_release_step(fp_in);
     adios_close(fp_out);
