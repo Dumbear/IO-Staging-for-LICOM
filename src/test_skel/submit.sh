@@ -6,18 +6,18 @@ PROC_WRITER=1
 PROC_READER=1
 PROC_SERVER=1
 let "PROC_ALL=PROC_WRITER+PROC_READER"
-DATA_SIZE_X=1024
-DATA_SIZE_Y=1024
-DATA_SIZE_Z=1024
+DATA_SIZE_X=362
+DATA_SIZE_Y=194
+DATA_SIZE_Z=30
 
 rm -f conf dataspaces.conf
 rm *staged.bp
 
 echo "# Config file for DataSpaces
 ndim = 3
-dimx = $DATA_SIZE_X
-dimy = $DATA_SIZE_Y
-dimz = $DATA_SIZE_Z
+dimx = 4096
+dimy = 4096
+dimz = 4096
 max_versions = 2
 " > dataspaces.conf
 
