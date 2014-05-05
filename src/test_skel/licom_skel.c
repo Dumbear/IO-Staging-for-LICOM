@@ -230,26 +230,26 @@ int main(int argc, char **argv) {
                          4 +
                          4 +
                          4 +
-                         8 * (ni_local) * (nj_local) +
-                         8 * (ni_local) * (nj_local) * (nk_local) +
-                         8 * (ni_local) * (nj_local) * (nk_local) +
-                         8 * (ni_local) * (nj_local) * (nk_local) +
-                         8 * (ni_local) * (nj_local) * (nk_local) +
-                         8 * (ni_local) * (nj_local) * (nk_local) +
-                         8 * (ni_local) * (nj_local) +
-                         8 * (ni_local) * (nj_local) +
-                         8 * (ni_local) * (nj_local) +
-                         8 * (ni_local) * (nj_local) +
-                         8 * (ni_local) * (nj_local) +
-                         8 * (ni_local) * (nj_local) +
-                         8 * (ni_local) * (nj_local) +
-                         8 * (ni_local) * (nj_local) +
-                         8 * (ni_local) * (nj_local) +
-                         8 * (ni_local) * (nj_local) +
-                         8 * (ni_local) * (nj_local) +
-                         8 * (ni_local) * (nj_local) +
-                         8 * (ni_local) * (nj_local) +
-                         8 * (ni_local) * (nj_local);
+                         (uint64_t)8 * (ni_local) * (nj_local) +
+                         (uint64_t)8 * (ni_local) * (nj_local) * (nk_local) +
+                         (uint64_t)8 * (ni_local) * (nj_local) * (nk_local) +
+                         (uint64_t)8 * (ni_local) * (nj_local) * (nk_local) +
+                         (uint64_t)8 * (ni_local) * (nj_local) * (nk_local) +
+                         (uint64_t)8 * (ni_local) * (nj_local) * (nk_local) +
+                         (uint64_t)8 * (ni_local) * (nj_local) +
+                         (uint64_t)8 * (ni_local) * (nj_local) +
+                         (uint64_t)8 * (ni_local) * (nj_local) +
+                         (uint64_t)8 * (ni_local) * (nj_local) +
+                         (uint64_t)8 * (ni_local) * (nj_local) +
+                         (uint64_t)8 * (ni_local) * (nj_local) +
+                         (uint64_t)8 * (ni_local) * (nj_local) +
+                         (uint64_t)8 * (ni_local) * (nj_local) +
+                         (uint64_t)8 * (ni_local) * (nj_local) +
+                         (uint64_t)8 * (ni_local) * (nj_local) +
+                         (uint64_t)8 * (ni_local) * (nj_local) +
+                         (uint64_t)8 * (ni_local) * (nj_local) +
+                         (uint64_t)8 * (ni_local) * (nj_local) +
+                         (uint64_t)8 * (ni_local) * (nj_local);
         adios_group_size(adios_handle, adios_groupsize, &skel_total_size);
 
         // Write each variable
