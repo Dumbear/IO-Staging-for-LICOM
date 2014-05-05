@@ -1,5 +1,10 @@
 # I/O Staging for LICOM 说明
 
+## 分支
+
+* HPCA: 私有集群
+* FIT: 探索-100
+
 ## 目录结构
 
 * `src/LICOM`
