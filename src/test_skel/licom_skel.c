@@ -307,6 +307,7 @@ int main(int argc, char **argv) {
         fprintf(stdout, "\n");
         fprintf(stdout, "\n*************************");
         fprintf(stdout, "\n   Groupsize: %lli", adios_groupsize);
+        fprintf(stdout, "\n  Init Time: %f", skel_total_init);
         fprintf(stdout, "\n  Open Time: %f", skel_total_open);
         fprintf(stdout, "\nAccess Time: %f", skel_total_access);
         fprintf(stdout, "\n Close Time: %f", skel_total_close);
