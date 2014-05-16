@@ -306,7 +306,7 @@ bool parse_arguments(int argc, char **argv) {
     rank_y = proc_rank / proc_x % proc_y;
     rank_z = proc_rank / proc_x / proc_y % proc_z;
 
-    method_read = ADIOS_READ_METHOD_DATASPACES;
+    method_read = ADIOS_READ_METHOD_FLEXPATH;
     return true;
 }
 
