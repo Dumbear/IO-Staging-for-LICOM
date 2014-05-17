@@ -189,7 +189,7 @@ void process_step() {
 
 bool process_single() {
     all_output("Opening read file <" + filename_in + ">...");
-    fp_in = adios_read_open(filename_in.c_str(), method_read, io_comm, ADIOS_LOCKMODE_NONE, 0.0);
+    fp_in = adios_read_open(filename_in.c_str(), method_read, io_comm, ADIOS_LOCKMODE_ALL, timeout_sec);
     if (fp_in == NULL) {
         if (adios_errno == err_file_not_found) {
             all_output("[ERROR] Read file not found!");
@@ -226,7 +226,7 @@ void advance_day(int &year, int &month, int &day) {
 
 void process() {
     all_output("Initializing read method...");
-    adios_read_init_method(method_read, io_comm, "");
+    adios_read_init_method(method_read, io_comm, "max_chunk_size=100; app_id =32767; \nverbose= 3;poll_interval  =  100;");
     all_output("Read method initialized.");
 
     all_output("Initializing ADIOS...");
@@ -306,7 +306,7 @@ bool parse_arguments(int argc, char **argv) {
     rank_y = proc_rank / proc_x % proc_y;
     rank_z = proc_rank / proc_x / proc_y % proc_z;
 
-    method_read = ADIOS_READ_METHOD_DATASPACES;
+    method_read = ADIOS_READ_METHOD_FLEXPATH;
     return true;
 }
 
