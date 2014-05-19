@@ -50,6 +50,7 @@ int64_t fp_out;
 
 int ni_global, nj_global, nk_global, ni_offset, nj_offset, nk_offset, ni_local, nj_local, nk_local;
 ADIOS_SELECTION *selection_2d, *selection_3d;
+map<string, void *> var_map;
 char *buf;
 
 bool decompose() {
@@ -83,8 +84,17 @@ bool decompose() {
     nk_local = to - from;
 
     uint64_t dim[2][3] = {{nk_offset, nj_offset, ni_offset}, {nk_local, nj_local, ni_local}};
-    selection_2d = adios_selection_boundingbox(2, dim[0], dim[1]);
+    selection_2d = adios_selection_boundingbox(2, dim[0] + 1, dim[1] + 1);
     selection_3d = adios_selection_boundingbox(3, dim[0], dim[1]);
+
+    var_map.clear();
+    var_map["/aux/ni_offset"] = &ni_offset;
+    var_map["/aux/nj_offset"] = &nj_offset;
+    var_map["/aux/nk_offset"] = &nk_offset;
+    var_map["/aux/ni_local"] = &ni_local;
+    var_map["/aux/nj_local"] = &nj_local;
+    var_map["/aux/nk_local"] = &nk_local;
+
     return true;
 }
 
@@ -93,34 +103,59 @@ void read_variable(int id, void *data, ADIOS_SELECTION *sel = NULL) {
     adios_perform_reads(fp_in, 1);
 }
 
+void write_variable(int id, void *data) {
+    adios_write(fp_out, fp_in->var_namelist[id], data);
+    printf("Rank[%d]: Variable %d - <%s> written.\n", proc_rank, id, fp_in->var_namelist[id]);
+}
+
 void process_step() {
     if (!decompose()) {
         return;
     }
+
     printf("Rank[%d]: Data decomposed successfully - global(%d, %d, %d), offset(%d, %d, %d), count(%d, %d, %d).\n", proc_rank,
-        ni_global, nj_global, nk_global,
-        ni_offset, nj_offset, nk_offset,
-        ni_local, nj_local, nk_local);
+        ni_global, nj_global, nk_global, ni_offset, nj_offset, nk_offset, ni_local, nj_local, nk_local);
+
+    adios_open(&fp_out, "ssaveins", filename_out.c_str(), "w", io_comm);
+    printf("Rank[%d]: File %s opened for write.\n", proc_rank, filename_out.c_str());
+
+    uint64_t group_size = 0, total_size;
+    group_size += 4 + 4 + 4 * 9;
+    group_size += (uint64_t)8 * 5 * ni_local * nj_local * nk_local;
+    group_size += (uint64_t)8 * 15 * ni_local * nj_local;
+    adios_group_size(fp_out, group_size, &total_size);
 
     buf = new char[sizeof(double) * ni_local * nj_local * nk_local + 1024];
     for (int i = 0; i < fp_in->nvars; ++i) {
+        string name(fp_in->var_namelist[i]);
         ADIOS_VARINFO *v = adios_inq_var_byid(fp_in, i);
         switch (v->ndim) {
             case 0:
+                if (var_map.find(name) != var_map.end()) {
+                    write_variable(i, var_map[name]);
+                } else {
+                    ADIOS_VARINFO *info = adios_inq_var_byid(fp_in, i);
+                    write_variable(i, info->value);
+                }
                 break;
             case 2:
                 read_variable(i, buf, selection_2d);
+                write_variable(i, buf);
                 break;
             case 3:
                 read_variable(i, buf, selection_3d);
+                write_variable(i, buf);
                 break;
             default:
+                printf("Rank[%d]: Unexpected variable <%s>, dimension = %d!", proc_rank, name.c_str(), v->ndim);
                 break;
         }
     }
     delete[] buf;
 
     adios_release_step(fp_in);
+    adios_close(fp_out);
+    printf("Rank[%d]: Step processed successfully.\n\n", proc_rank);
 }
 
 void process() {
@@ -184,11 +219,14 @@ int main(int argc, char **argv) {
     if (parse_arguments(argc, argv)) {
         adios_read_init_method(method_read, io_comm, "");
         printf("Rank[%d]: FLEXPATH method initialized.\n", proc_rank);
+        adios_init("licom2_staging.xml", io_comm);
+        printf("Rank[%d]: ADIOS initialized.\n", proc_rank);
         for (int i = 0; i < n_steps; ++i) {
             get_filenames();
             process();
         }
         adios_read_finalize_method(method_read);
+        adios_finalize(proc_rank);
     } else {
         if (proc_rank == 0) {
             printf("Usage: %s <n_steps> <proc_x> <proc_y> <proc_z>\n", argv[0]);
