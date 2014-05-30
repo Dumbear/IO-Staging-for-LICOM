@@ -11,8 +11,12 @@
     <var name="/local/count_y" type="integer" />
     <var name="/local/count_z" type="integer" />
 
+    <global-bounds dimensions="/global/nx,/global/ny" offsets="/local/start_x,/local/start_y">
+      <var name="/var/data2d" type="integer" dimensions="/local/count_x,/local/count_y" />
+    </global-bounds>
+
     <global-bounds dimensions="/global/nx,/global/ny,/global/nz" offsets="/local/start_x,/local/start_y,/local/start_z">
-      <var name="/var/data" type="integer" dimensions="/local/count_x,/local/count_y,/local/count_z" />
+      <var name="/var/data3d" type="integer" dimensions="/local/count_x,/local/count_y,/local/count_z" />
     </global-bounds>
   </adios-group>
 
