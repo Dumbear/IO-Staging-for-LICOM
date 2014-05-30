@@ -2,7 +2,7 @@
 
 source ../env_config.sh
 
-PROC_WRITER=8
+PROC_WRITER=4
 PROC_READER=1
 
 rm *_info.txt *_ready.txt
