@@ -1,18 +1,22 @@
 <adios-config host-language="C">
   <adios-group name="sample">
-    <var name="/global/nx" type="integer" />
-    <var name="/global/ny" type="integer" />
-    <var name="/global/nz" type="integer" />
+    <var name="nx" type="integer" />
+    <var name="ny" type="integer" />
+    <var name="nz" type="integer" />
 
-    <var name="/local/start_x" type="integer" />
-    <var name="/local/start_y" type="integer" />
-    <var name="/local/start_z" type="integer" />
-    <var name="/local/count_x" type="integer" />
-    <var name="/local/count_y" type="integer" />
-    <var name="/local/count_z" type="integer" />
+    <var name="start_x" type="integer" />
+    <var name="start_y" type="integer" />
+    <var name="start_z" type="integer" />
+    <var name="count_x" type="integer" />
+    <var name="count_y" type="integer" />
+    <var name="count_z" type="integer" />
 
-    <global-bounds dimensions="/global/nx,/global/ny,/global/nz" offsets="/local/start_x,/local/start_y,/local/start_z">
-      <var name="/var/data" type="integer" dimensions="/local/count_x,/local/count_y,/local/count_z" />
+    <global-bounds dimensions="nx,ny" offsets="start_x,start_y">
+      <var name="data2d" type="integer" dimensions="count_x,count_y" />
+    </global-bounds>
+
+    <global-bounds dimensions="nx,ny,nz" offsets="start_x,start_y,start_z">
+      <var name="data3d" type="integer" dimensions="count_x,count_y,count_z" />
     </global-bounds>
   </adios-group>
 
