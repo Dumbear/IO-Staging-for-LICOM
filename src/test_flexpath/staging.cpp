@@ -49,6 +49,7 @@ ADIOS_FILE *fp_in;
 int64_t fp_out;
 
 int ni_global, nj_global, nk_global, ni_offset, nj_offset, nk_offset, ni_local, nj_local, nk_local;
+uint64_t dim_start[16], dim_count[16];
 ADIOS_SELECTION *selection_2d, *selection_3d;
 map<string, void *> var_map;
 char *buf;
@@ -83,9 +84,10 @@ bool decompose() {
     nk_offset = from;
     nk_local = to - from;
 
-    uint64_t dim[2][3] = {{nk_offset, nj_offset, ni_offset}, {nk_local, nj_local, ni_local}};
-    selection_2d = adios_selection_boundingbox(2, dim[0] + 1, dim[1] + 1);
-    selection_3d = adios_selection_boundingbox(3, dim[0], dim[1]);
+    dim_start[0] = nk_offset; dim_start[1] = nj_offset; dim_start[2] = ni_offset;
+    dim_count[0] = nk_local; dim_count[1] = nj_local; dim_count[2] = ni_local;
+    selection_2d = adios_selection_boundingbox(2, dim_start + 1, dim_count + 1);
+    selection_3d = adios_selection_boundingbox(3, dim_start, dim_count);
 
     var_map.clear();
     var_map["/aux/ni_offset"] = &ni_offset;
