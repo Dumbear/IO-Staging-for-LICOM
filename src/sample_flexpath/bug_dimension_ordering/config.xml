@@ -1,0 +1,24 @@
+<adios-config host-language="C">
+  <adios-group name="sample">
+    <var name="nx" type="integer" />
+    <var name="ny" type="integer" />
+    <var name="nz" type="integer" />
+
+    <var name="start_x" type="integer" />
+    <var name="start_y" type="integer" />
+    <var name="start_z" type="integer" />
+    <var name="count_x" type="integer" />
+    <var name="count_y" type="integer" />
+    <var name="count_z" type="integer" />
+
+    <global-bounds dimensions="nx,ny,nz" offsets="start_x,start_y,start_z">
+      <var name="data" type="integer" dimensions="count_x,count_y,count_z" />
+    </global-bounds>
+  </adios-group>
+
+  <method group="sample" method="FLEXPATH">
+    QUEUE_SIZE=4
+  </method>
+
+  <buffer size-MB="1" allocate-time="now" />
+</adios-config>
