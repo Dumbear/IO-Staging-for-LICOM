@@ -84,9 +84,9 @@ bool decompose() {
     nk_offset = from;
     nk_local = to - from;
 
-    dim_start[0] = nk_offset; dim_start[1] = nj_offset; dim_start[2] = ni_offset;
-    dim_count[0] = nk_local; dim_count[1] = nj_local; dim_count[2] = ni_local;
-    selection_2d = adios_selection_boundingbox(2, dim_start + 1, dim_count + 1);
+    dim_start[0] = ni_offset; dim_start[1] = nj_offset; dim_start[2] = nk_offset;
+    dim_count[0] = ni_local; dim_count[1] = nj_local; dim_count[2] = nk_local;
+    selection_2d = adios_selection_boundingbox(2, dim_start, dim_count);
     selection_3d = adios_selection_boundingbox(3, dim_start, dim_count);
 
     var_map.clear();
