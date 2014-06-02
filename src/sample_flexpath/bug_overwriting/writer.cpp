@@ -46,8 +46,8 @@ int main(int argc, char **argv) {
     adios_write(fp_out, "count_x", &count_x);
     adios_write(fp_out, "count_y", &count_y);
     adios_write(fp_out, "count_z", &count_z);
-    adios_write(fp_out, "data2d", &data2d);
-    adios_write(fp_out, "data3d", &data3d);
+    adios_write(fp_out, "data2d", data2d);
+    adios_write(fp_out, "data3d", data3d);
 
     adios_close(fp_out);
     adios_finalize(proc_rank);
