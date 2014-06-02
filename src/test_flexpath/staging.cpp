@@ -52,7 +52,7 @@ int ni_global, nj_global, nk_global, ni_offset, nj_offset, nk_offset, ni_local, 
 uint64_t dim_start[16], dim_count[16];
 ADIOS_SELECTION *selection_2d, *selection_3d;
 map<string, void *> var_map;
-char *buf;
+vector<void *> var_buffer;
 
 bool decompose() {
     ADIOS_VARINFO *ni_info = adios_inq_var(fp_in, "/dimensions/ni_global");
@@ -100,14 +100,52 @@ bool decompose() {
     return true;
 }
 
-void read_variable(int id, void *data, ADIOS_SELECTION *sel = NULL) {
-    adios_schedule_read(fp_in, sel, fp_in->var_namelist[id], 0, 1, data);
-    adios_perform_reads(fp_in, 1);
-}
-
 void write_variable(int id, void *data) {
     adios_write(fp_out, fp_in->var_namelist[id], data);
     printf("Rank[%d]: Variable %d - <%s> written.\n", proc_rank, id, fp_in->var_namelist[id]);
+}
+
+void read_variables() {
+    var_buffer.resize(fp_in->nvars);
+    for (int i = 0; i < fp_in->nvars; ++i) {
+        string name(fp_in->var_namelist[i]);
+        ADIOS_VARINFO *v = adios_inq_var_byid(fp_in, i);
+        switch (v->ndim) {
+            case 0:
+                if (var_map.find(name) != var_map.end()) {
+                    var_buffer[i] = var_map[name];
+                } else {
+                    var_buffer[i] = v->value;
+                }
+                break;
+            case 2:
+                var_buffer[i] = new char[adios_type_size(v->type, v->value) * v->dims[0] * v->dims[1]];
+                adios_schedule_read_byid(fp_in, selection_2d, i, 0, 1, var_buffer[i]);
+                break;
+            case 3:
+                var_buffer[i] = new char[adios_type_size(v->type, v->value) * v->dims[0] * v->dims[1] * v->dims[2]];
+                adios_schedule_read_byid(fp_in, selection_3d, i, 0, 1, var_buffer[i]);
+                break;
+            default:
+                var_buffer[i] = NULL;
+                printf("Rank[%d]: Unexpected variable <%s>, dimension = %d!", proc_rank, fp_in->var_namelist[i], v->ndim);
+                break;
+        }
+        printf("Rank[%d]: Variable %d - <%s> read.\n", proc_rank, i, fp_in->var_namelist[i]);
+    }
+    adios_perform_reads(fp_in, 1);
+    printf("Rank[%d]: All variables read successfully.\n\n", proc_rank);
+}
+
+void write_variables() {
+    for (int i = 0; i < fp_in->nvars; ++i) {
+        ADIOS_VARINFO *v = adios_inq_var_byid(fp_in, i);
+        adios_write(fp_out, fp_in->var_namelist[i], var_buffer[i]);
+        printf("Rank[%d]: Variable %d - <%s> written.\n", proc_rank, i, fp_in->var_namelist[i]);
+        if (v->ndim > 0) {
+            delete[] var_buffer[i];
+        }
+    }
 }
 
 void process_step() {
@@ -127,33 +165,8 @@ void process_step() {
     group_size += (uint64_t)8 * 15 * ni_local * nj_local;
     adios_group_size(fp_out, group_size, &total_size);
 
-    buf = new char[sizeof(double) * ni_local * nj_local * nk_local + 1024];
-    for (int i = 0; i < fp_in->nvars; ++i) {
-        string name(fp_in->var_namelist[i]);
-        ADIOS_VARINFO *v = adios_inq_var_byid(fp_in, i);
-        switch (v->ndim) {
-            case 0:
-                if (var_map.find(name) != var_map.end()) {
-                    write_variable(i, var_map[name]);
-                } else {
-                    ADIOS_VARINFO *info = adios_inq_var_byid(fp_in, i);
-                    write_variable(i, info->value);
-                }
-                break;
-            case 2:
-                read_variable(i, buf, selection_2d);
-                write_variable(i, buf);
-                break;
-            case 3:
-                read_variable(i, buf, selection_3d);
-                write_variable(i, buf);
-                break;
-            default:
-                printf("Rank[%d]: Unexpected variable <%s>, dimension = %d!", proc_rank, name.c_str(), v->ndim);
-                break;
-        }
-    }
-    delete[] buf;
+    read_variables();
+    write_variables();
 
     adios_release_step(fp_in);
     adios_close(fp_out);
